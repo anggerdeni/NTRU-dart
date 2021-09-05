@@ -85,7 +85,6 @@ class Polynomial {
     Polynomial q = Polynomial(this._N, new List.filled(this._N+1, 0));
 
     int secondPolynomialDegree = secondPolynomial.getDegree();
-    print(secondPolynomial.getCoeffisienOfDegree(secondPolynomialDegree));
     int u = secondPolynomial.getCoeffisienOfDegree(secondPolynomialDegree).modInverse(p);
     int d;
     

@@ -57,9 +57,9 @@ Polynomial inverse(Polynomial a, int p) {
 
 void main() {
   int p = 3;
-  int q = 32;
+  int q = 37;
 
-  Polynomial polynom1 = Polynomial(11, [-1, 1, 1, 0, -1, 0, 1, 0, 0, 1, -1]);
+  Polynomial polynom1 = Polynomial(11, [-1, 1, 1, 0, -1, 0, 1, 0, 0, 1, -1]).reduce(p);
   Polynomial polynom2 = Polynomial(11, [-1, 0, 0, 0,  0, 0, 0, 0, 0, 0,  0]);
   polynom2.coefficients[11] = 1;
   // List<Polynomial> tmp = polynom2.div(polynom1, p);
@@ -73,6 +73,15 @@ void main() {
   // Polynomial d = tmp[2].reduce(p);
 
   Polynomial invP = inverse(polynom1, p);
-  Polynomial invQ = inverse(polynom1, q);
+  polynom1 = Polynomial(10, [-1, 1, 1, 0, -1, 0, 1, 0, 0, 1, -1]).reduce(p);
+  invP = Polynomial(10, invP.coefficients).reduce(p);
+  Polynomial testP = (invP * polynom1).reduce(p);
+  print(polynom1.coefficients);
   print(invP.coefficients);
+  print(testP.coefficients);
+
+  // Polynomial invQ = inverse(polynom1, q).reduce(q);
+  // Polynomial testQ = (invQ * polynom1).reduce(q);
+  // print(invQ.coefficients);
+  // print(testQ.coefficients);
 }
