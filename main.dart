@@ -60,28 +60,14 @@ void main() {
   int q = 37;
 
   Polynomial polynom1 = Polynomial(11, [-1, 1, 1, 0, -1, 0, 1, 0, 0, 1, -1]).reduce(p);
-  Polynomial polynom2 = Polynomial(11, [-1, 0, 0, 0,  0, 0, 0, 0, 0, 0,  0]);
-  polynom2.coefficients[11] = 1;
-  // List<Polynomial> tmp = polynom2.div(polynom1, p);
-  // print(tmp[0].coefficients);
-  // print(tmp[1].coefficients);
-  // print((tmp[0] * polynom1 + tmp[1]).reduceCenterLift(p).coefficients);
-
-  // List<Polynomial> tmp = egcd(polynom1, polynom2, p);
-  // Polynomial u = tmp[0].reduce(p);
-  // Polynomial v = tmp[1].reduce(p);
-  // Polynomial d = tmp[2].reduce(p);
 
   Polynomial invP = inverse(polynom1, p);
+  Polynomial invQ = inverse(polynom1, q).reduce(q);
   polynom1 = Polynomial(10, [-1, 1, 1, 0, -1, 0, 1, 0, 0, 1, -1]).reduce(p);
   invP = Polynomial(10, invP.coefficients).reduce(p);
+  invQ = Polynomial(10, invQ.coefficients).reduce(q);
   Polynomial testP = (invP * polynom1).reduce(p);
-  print(polynom1.coefficients);
-  print(invP.coefficients);
+  Polynomial testQ = (invQ * polynom1).reduce(q);
   print(testP.coefficients);
-
-  // Polynomial invQ = inverse(polynom1, q).reduce(q);
-  // Polynomial testQ = (invQ * polynom1).reduce(q);
-  // print(invQ.coefficients);
-  // print(testQ.coefficients);
+  print(testQ.coefficients);
 }
