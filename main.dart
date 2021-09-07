@@ -7,7 +7,19 @@ void main() {
   int q = 256;
   int N = 10;
   // N = 503;
+  
+  /*
+  Polynomial f;
+  Polynomial g;
+  Polynomial h;
+  for (int i = 0; i<1000; i++) {
+    f = generateRandomPolynomial(N);
+    g = generateRandomPolynomial(N);
+    h = f*g;
+  }
+  */
 
+  
   NTRU ntru = new NTRU(N, p, q);
   // print(ntru.publicKey.coefficients);
 
@@ -22,16 +34,19 @@ void main() {
   }
   print('d ${d.coefficients}');
   print('decryption ${d.isZero() ? "success" : "failed"}');
+  
 
 
-  // Polynomial polynom1 = generateRandomPolynomial(N).reduce(p);
+  /*
+  Polynomial polynom1 = generateRandomPolynomial(N).reduce(p);
 
-  // Polynomial invP = inverse(polynom1, p);
-  // Polynomial invQ = inverse(polynom1, q).reduce(q);
-  // invP = Polynomial(N, invP.coefficients).reduce(p);
-  // invQ = Polynomial(N, invQ.coefficients).reduce(q);
-  // Polynomial testP = (invP * polynom1).reduce(p);
-  // Polynomial testQ = (invQ * polynom1).reduce(q);
-  // print(testP.coefficients);
-  // print(testQ.coefficients);
+  Polynomial invP = inverse(polynom1, p);
+  Polynomial invQ = inverse(polynom1, q).reduce(q);
+  invP = Polynomial(N, invP.coefficients).reduce(p);
+  invQ = Polynomial(N, invQ.coefficients).reduce(q);
+  Polynomial testP = (invP * polynom1).reduce(p);
+  Polynomial testQ = (invQ * polynom1).reduce(q);
+  print(testP.coefficients);
+  print(testQ.coefficients);
+  */
 }

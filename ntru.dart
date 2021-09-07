@@ -19,15 +19,9 @@ class NTRU {
     Polynomial testQ = new Polynomial(1, [0]);
 
     bool foundKeyPair = false;
-    int i = 0;
     while(!foundKeyPair) {
-      i++;
-      // print(i);
       bool inverseFound = false;
-      int j = 0;
       while(!inverseFound) {
-        j++;
-        // print('inv-$j');
         try {
           f = generateRandomPolynomial(_N).reduce(_p);
           fInvP = inverse(f, _p);
