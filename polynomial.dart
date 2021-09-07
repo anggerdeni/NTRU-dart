@@ -75,6 +75,16 @@ class Polynomial {
     return Polynomial(this._N, result);
   }
 
+  Polynomial multiplyInt(int b) {
+    List<int> result = new List.filled(this._N+1, 0);
+    
+    for (int i = 0; i < this._coefficients.length; i += 1) {
+      result[i] += this._coefficients[i] * b;
+    }
+
+    return Polynomial(this._N, result);
+  }
+
   Polynomial multiplyReducePower(Polynomial secondPolynomial) {
     Polynomial tmp = this * secondPolynomial;
     return tmp.reducePower();
@@ -145,6 +155,10 @@ class Polynomial {
 
   bool isZero() {
     return this.getDegree() == 0 && this.getCoeffisienOfDegree(0) == 0;
+  }
+
+  bool isOne() {
+    return this.getDegree() == 0 && this.getCoeffisienOfDegree(0) == 1;
   }
 
   int getDegree() {
