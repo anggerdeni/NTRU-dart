@@ -22,14 +22,14 @@ class NTRU {
     int i = 0;
     while(!foundKeyPair) {
       i++;
-      print(i);
+      // print(i);
       bool inverseFound = false;
       int j = 0;
       while(!inverseFound) {
         j++;
-        print('inv-$j');
+        // print('inv-$j');
         try {
-          f = generateRandomPolynomial(_N+1).reduce(_p);
+          f = generateRandomPolynomial(_N).reduce(_p);
           fInvP = inverse(f, _p);
           fInvQ = inverse(f, _q).reduce(_q);
           inverseFound = true;
@@ -65,5 +65,11 @@ class NTRU {
     if(message.N != _N) throw new Exception('Message should have same N');
     Polynomial r = generateRandomPolynomial(_N);
     return (r*h + message).reduce(_q);
+  }
+
+  Polynomial decrypt(Polynomial cipher) {
+    Polynomial a = (this.f * cipher).reduceCenterLift(this._q);
+    a = a.reduceCenterLift(this._p);
+    return (this.fp * a).reduceCenterLift(this._p);
   }
 }

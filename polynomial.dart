@@ -5,7 +5,7 @@ class Polynomial {
   List<int> _coefficients = [];
 
   Polynomial(this._N, List<int> coefficients) {
-    if(coefficients.length <= this._N) this._coefficients = new List.filled(this._N+1, 0);
+    if(coefficients.length <= this._N) this._coefficients = new List.filled(this._N, 0);
     else this._coefficients = new List.filled(coefficients.length, 0);
     for(int i = 0; i < coefficients.length; i++) {
       this._coefficients[i] += coefficients[i];
@@ -13,8 +13,8 @@ class Polynomial {
   }
 
   Polynomial.fromDegree(this._N, { required d, coeff }) {
-    if(d >= this._N+1) throw Exception('Data length should be less than or equal to N');
-    this._coefficients = new List.filled(this._N+1, 0);
+    if(d >= this._N) throw Exception('Data length should be less than or equal to N');
+    this._coefficients = new List.filled(this._N, 0);
     if(coeff != null) this._coefficients[d] = coeff;
     else this._coefficients[d] = 1;
   }
@@ -64,11 +64,11 @@ class Polynomial {
 
   Polynomial operator*(Polynomial secondPolynomial) {
     if(this._N != secondPolynomial.N) throw new Exception('The two polynomials should have the same N');
-    List<int> result = new List.filled(this._N+1, 0);
+    List<int> result = new List.filled(this._N, 0);
     
     for (int i = 0; i < this._coefficients.length; i += 1) {
       for (int j = 0; j < secondPolynomial.coefficients.length; j += 1) {
-        result[(i+j)%(this._N + 1)] += this._coefficients[i] * secondPolynomial.coefficients[j];
+        result[(i+j)%(this._N)] += this._coefficients[i] * secondPolynomial.coefficients[j];
       }
     }
 
@@ -76,7 +76,7 @@ class Polynomial {
   }
 
   Polynomial multiplyInt(int b) {
-    List<int> result = new List.filled(this._N+1, 0);
+    List<int> result = new List.filled(this._N, 0);
     
     for (int i = 0; i < this._coefficients.length; i += 1) {
       result[i] += this._coefficients[i] * b;
@@ -92,7 +92,7 @@ class Polynomial {
 
   List<Polynomial> div(Polynomial secondPolynomial, int p) {
     Polynomial r = this.clone().reduce(p);
-    Polynomial q = Polynomial(this._N, new List.filled(this._N+1, 0));
+    Polynomial q = Polynomial(this._N, new List.filled(this._N, 0));
 
     int secondPolynomialDegree = secondPolynomial.getDegree();
     int u = secondPolynomial.getCoeffisienOfDegree(secondPolynomialDegree).modInverse(p);

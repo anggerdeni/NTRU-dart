@@ -34,7 +34,10 @@ List<Polynomial> egcd(Polynomial a, Polynomial b, int p) {
 }
 
 Polynomial inverse(Polynomial a, int p) {
-  Polynomial XN_1 = new Polynomial.fromDegree(a.N, d: a.N);
+  List<int> coeffA = List.from(a.coefficients);
+  coeffA.add(0);
+  a = new Polynomial(a.N+1, coeffA);
+  Polynomial XN_1 = new Polynomial.fromDegree(a.N, d: a.N-1);
   XN_1.coefficients[0] = -1;
   List<Polynomial>tmp = egcd(a, XN_1, p);
   Polynomial u = tmp[0].reduce(p);
