@@ -4,13 +4,7 @@ class Polynomial {
   int _N;
   List<int> _coefficients = [];
 
-  Polynomial(this._N, List<int> coefficients) {
-    if(coefficients.length <= this._N) this._coefficients = new List.filled(this._N, 0);
-    else this._coefficients = new List.filled(coefficients.length, 0);
-    for(int i = 0; i < coefficients.length; i++) {
-      this._coefficients[i] += coefficients[i];
-    }
-  }
+  Polynomial(this._N, this._coefficients);
 
   Polynomial.fromDegree(this._N, { required d, coeff }) {
     if(d >= this._N) throw Exception('Data length should be less than or equal to N');
@@ -37,10 +31,8 @@ class Polynomial {
 
   Polynomial operator+(Polynomial secondPolynomial) {
     if(this._N != secondPolynomial.N) throw new Exception('The two polynomials should have the same N');
-    List<int> result;
-    List<int> secondData;
-    result = List<int>.from(this._coefficients);
-    secondData = List<int>.from(secondPolynomial.coefficients);
+    List<int> result = List<int>.from(this._coefficients);
+    List<int> secondData = List<int>.from(secondPolynomial.coefficients);
     
     for (int i = 0; i < secondData.length; i += 1) {
       result[i] += secondData[i];
@@ -53,7 +45,6 @@ class Polynomial {
     if(this._N != secondPolynomial.N) throw new Exception('The two polynomials should have the same N');
     List<int> original = List<int>.from(this._coefficients);
     List<int> pengurang = List<int>.from(secondPolynomial.coefficients);
-    // print('${original} - ${pengurang}');
     
     for (int i = 0; i < pengurang.length; i += 1) {
       original[i] -= pengurang[i];
@@ -68,7 +59,7 @@ class Polynomial {
     
     for (int i = 0; i < this._coefficients.length; i += 1) {
       for (int j = 0; j < secondPolynomial.coefficients.length; j += 1) {
-        result[(i+j)%(this._N)] += this._coefficients[i] * secondPolynomial.coefficients[j];
+        result[(i+j) % this._N] += this._coefficients[i] * secondPolynomial.coefficients[j];
       }
     }
 
@@ -91,7 +82,7 @@ class Polynomial {
   }
 
   List<Polynomial> div(Polynomial secondPolynomial, int p) {
-    Polynomial r = this.clone().reduce(p);
+    Polynomial r = this.clone();
     Polynomial q = Polynomial(this._N, new List.filled(this._N, 0));
 
     int secondPolynomialDegree = secondPolynomial.getDegree();
@@ -100,36 +91,22 @@ class Polynomial {
     
     Polynomial v;
     while(r.getDegree() >= secondPolynomialDegree && !r.isZero()) {
-      // print('division ${this.coefficients} / ${secondPolynomial.coefficients}');
       d = r.getDegree();
-      v = Polynomial.fromDegree(this._N, d: (d - secondPolynomialDegree), coeff: u * (r.getCoeffisienOfDegree(d))).reduce(p);
+      v = Polynomial.fromDegree(this._N, d: (d - secondPolynomialDegree), coeff: u * (r.getCoeffisienOfDegree(d)));
       r = (r - v * secondPolynomial).reduce(p);
       q = (q + v).reduce(p);
-      // print('d $d');
-      // print('u $u');
-      // print('r ${r.coefficients}');
-      // print('v ${v.coefficients}');
-      // print('q ${q.coefficients}');
     }
 
     return [q,r];
   }
 
   Polynomial reduce(int p) {
-    Polynomial result = this.clone();
-    for (int i = 0; i < this._coefficients.length; i++) {
-      result.coefficients[i] = result.coefficients[i] % p;
-    }
-
-    return result;
+    List<int> result = this._coefficients.map((elem) => elem%p).toList();
+    return Polynomial(this._N, result);
   }
 
   Polynomial reduceCenterLift(int p) {
-    List<int> result = List<int>.from(this._coefficients);
-    for (int i = 0; i < this._coefficients.length; i++) {
-      result[i] = modCenterLift(result[i], p);
-    }
-
+    List<int> result = this._coefficients.map((elem) => modCenterLift(elem, p)).toList();
     return Polynomial(this._N, result);
   }
 
@@ -150,7 +127,7 @@ class Polynomial {
   }
 
   Polynomial clone() {
-    return Polynomial(this._N, this._coefficients);
+    return Polynomial(this._N, List.from(this._coefficients));
   }
 
   bool isZero() {

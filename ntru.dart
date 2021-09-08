@@ -12,26 +12,28 @@ class NTRU {
 
   NTRU(this._N, this._p, this._q) {
     Polynomial f = new Polynomial(1, [0]);
-    Polynomial g = generateRandomPolynomial(_N).reduce(_p);
+    Polynomial g = generateRandomPolynomial(_N);
     Polynomial fInvP = new Polynomial(1, [0]);
     Polynomial fInvQ = new Polynomial(1, [0]);
     Polynomial testP = new Polynomial(1, [0]);
     Polynomial testQ = new Polynomial(1, [0]);
 
     bool foundKeyPair = false;
+    int regenerateKeyPairCount = 0;
     while(!foundKeyPair) {
       bool inverseFound = false;
       while(!inverseFound) {
         try {
-          f = generateRandomPolynomial(_N).reduce(_p);
+          f = generateRandomPolynomial(_N);
           fInvP = inverse(f, _p);
           fInvQ = inverse(f, _q).reduce(_q);
           inverseFound = true;
         } catch(e) {
+          print(e);
           continue;
         }
       }
-      f = Polynomial(_N, f.coefficients.sublist(0,f.coefficients.length - 1)).reduce(_p);
+      f = Polynomial(_N, f.coefficients.sublist(0,f.coefficients.length - 1));
       fInvP = Polynomial(_N, fInvP.coefficients.sublist(0,f.coefficients.length - 1)).reduce(_p);
       fInvQ = Polynomial(_N, fInvQ.coefficients.sublist(0,f.coefficients.length - 1)).reduce(_q);
       testP = (fInvP * f).reduce(_p);
@@ -44,7 +46,9 @@ class NTRU {
         this.h = (fInvQ.multiplyInt(_p) * g).reduce(_q);
         foundKeyPair = true;
       }
+      regenerateKeyPairCount++;
     }
+    print('regenerate key attempt: $regenerateKeyPairCount');
   }
 
   Polynomial get publicKey {
