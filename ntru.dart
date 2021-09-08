@@ -26,7 +26,6 @@ class NTRU {
         try {
           f = generateRandomPolynomial(_N);
           fInvP = inverseF3(f);
-          print('here');
           fInvQ = inverseFq(f, _q);
           inverseFound = true;
         } catch(e) {

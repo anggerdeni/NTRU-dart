@@ -5,7 +5,7 @@ import 'helper.dart';
 void main() {
   int p = 3;
   int q = 2048;
-  int N = 401;
+  int N = 10;
   // N = 503;
   
   /*
