@@ -67,12 +67,19 @@ class Polynomial {
   }
 
   Polynomial multiplyInt(int b) {
-    List<int> result = new List.filled(this._N, 0);
+    List<int> result = [];
     
     for (int i = 0; i < this._coefficients.length; i += 1) {
-      result[i] += this._coefficients[i] * b;
+      result.add(this._coefficients[i] * b);
     }
 
+    return Polynomial(this._N, result);
+  }
+
+  Polynomial addInt(int b) {
+    List<int> result = List.from(this._coefficients);
+    result[result.length - 1] += b;
+    
     return Polynomial(this._N, result);
   }
 

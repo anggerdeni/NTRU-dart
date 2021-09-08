@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'polynomial.dart';
 import 'dart:typed_data';
+import 'dart:convert';
 
 double log2(int x) {
   return log(x) / log(2);
@@ -77,7 +78,7 @@ List<Polynomial> egcd(Polynomial a, Polynomial b, int p) {
     List<Polynomial> tmp = d.div(v3, p);
     Polynomial q = tmp[0];
     Polynomial t3 = tmp[1];
-    if(t3.getDegree() > v3.getDegree()) throw new Exception('Something wrong');
+    // if(t3.getDegree() > v3.getDegree()) throw new Exception('Something wrong');
 
     Polynomial t1 = (u - q * v1).reduce(p);
     u.coefficients = List.from(v1.coefficients);
@@ -282,21 +283,31 @@ List<int> randomCoefficients(int length, int d, int neg_ones_diff) {
   return result;
 }
 
-Polynomial generateRandomPolynomial(int N, { List<int>? options }) {
+Polynomial generateRandomPolynomial2(int N, { List<int>? options }) {
   List<int> coeff = List.filled(N, 0);
   if(options == null) {
     options = [-1,0,1];
   }
   Random rand = new Random();
   for (int i = 0; i < N; i++) {
-    // randomize -1,0,1
     coeff[i] = options[rand.nextInt(options.length)];
   }
 
   return new Polynomial(N, coeff);
 }
 
-Polynomial generateRandomPolynomial2(int N) {
+Polynomial generateRandomPolynomial(int N) {
   List<int> coeff = randomCoefficients(N, (N/3).floor(), -1);
   return new Polynomial(N, coeff);
+}
+
+bool comparePoly(Polynomial a, Polynomial b) {
+  for(int i = 0; i < a.N; i++) {
+    if(a.coefficients[i] != b.coefficients[i]) return false;
+  }
+  return true;
+}
+
+List<int> str2byteArray(String x) {
+  return utf8.encode(x);
 }

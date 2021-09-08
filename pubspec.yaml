@@ -1,0 +1,11 @@
+name: newtify
+version: 1.2.3
+description: >-
+  NTRU playground
+homepage: https://example-pet-store.com/newtify
+documentation: https://example-pet-store.com/newtify/docs
+environment:
+  sdk: '2.13.1'
+dependencies: 
+  encrypt: ^5.0.1
+dev_dependencies:

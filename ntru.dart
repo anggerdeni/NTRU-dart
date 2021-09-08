@@ -2,16 +2,17 @@ import 'helper.dart';
 import 'polynomial.dart';
 
 class NTRU {
-  int _N;
-  int _p;
-  int _q;
+  final int _N = 401;
+  final int _p = 3;
+  final int _q = 2048;
   late Polynomial f;
   late Polynomial fp;
   late Polynomial g;
   late Polynomial h;
 
-  NTRU(this._N, this._p, this._q) {
+  NTRU() {
     Polynomial f = new Polynomial(1, [0]);
+    Polynomial F = new Polynomial(1, [0]);
     Polynomial g = generateRandomPolynomial(_N);
     Polynomial fInvP = new Polynomial(1, [0]);
     Polynomial fInvQ = new Polynomial(1, [0]);
@@ -19,23 +20,19 @@ class NTRU {
     Polynomial testQ = new Polynomial(1, [0]);
 
     bool foundKeyPair = false;
-    int regenerateKeyPairCount = 0;
     while(!foundKeyPair) {
       bool inverseFound = false;
       while(!inverseFound) {
         try {
-          f = generateRandomPolynomial(_N);
+          F = generateRandomPolynomial(_N);
+          f = F.multiplyInt(_p).addInt(1).reduce(_p);
           fInvP = inverseF3(f);
           fInvQ = inverseFq(f, _q);
           inverseFound = true;
         } catch(e) {
-          print(e);
           continue;
         }
       }
-      // f = Polynomial(_N, f.coefficients.sublist(0,f.coefficients.length - 1));
-      // fInvP = Polynomial(_N, fInvP.coefficients.sublist(0,f.coefficients.length - 1)).reduce(_p);
-      // fInvQ = Polynomial(_N, fInvQ.coefficients.sublist(0,f.coefficients.length - 1)).reduce(_q);
       testP = (fInvP * f).reduce(_p);
       testQ = (fInvQ * f).reduce(_q);
 
@@ -46,9 +43,7 @@ class NTRU {
         this.h = (fInvQ.multiplyInt(_p) * g).reduce(_q);
         foundKeyPair = true;
       }
-      regenerateKeyPairCount++;
     }
-    print('regenerate key attempt: $regenerateKeyPairCount');
   }
 
   Polynomial get publicKey {
