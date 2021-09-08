@@ -25,17 +25,18 @@ class NTRU {
       while(!inverseFound) {
         try {
           f = generateRandomPolynomial(_N);
-          fInvP = inverse(f, _p);
-          fInvQ = inverse(f, _q).reduce(_q);
+          fInvP = inverseF3(f);
+          print('here');
+          fInvQ = inverseFq(f, _q);
           inverseFound = true;
         } catch(e) {
           print(e);
           continue;
         }
       }
-      f = Polynomial(_N, f.coefficients.sublist(0,f.coefficients.length - 1));
-      fInvP = Polynomial(_N, fInvP.coefficients.sublist(0,f.coefficients.length - 1)).reduce(_p);
-      fInvQ = Polynomial(_N, fInvQ.coefficients.sublist(0,f.coefficients.length - 1)).reduce(_q);
+      // f = Polynomial(_N, f.coefficients.sublist(0,f.coefficients.length - 1));
+      // fInvP = Polynomial(_N, fInvP.coefficients.sublist(0,f.coefficients.length - 1)).reduce(_p);
+      // fInvQ = Polynomial(_N, fInvQ.coefficients.sublist(0,f.coefficients.length - 1)).reduce(_q);
       testP = (fInvP * f).reduce(_p);
       testQ = (fInvQ * f).reduce(_q);
 
