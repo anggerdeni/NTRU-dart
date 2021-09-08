@@ -108,8 +108,7 @@ class Polynomial {
   }
 
   Polynomial reduce(int p) {
-    List<int> result = this._coefficients.map((elem) => elem%p).toList();
-    return Polynomial(this._N, result);
+    return Polynomial(this._N, this._coefficients.map((elem) => elem%p).toList());
   }
 
   Polynomial reduceCenterLift(int p) {

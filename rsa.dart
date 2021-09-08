@@ -2,9 +2,7 @@ import 'package:encrypt/encrypt.dart';
 import 'package:encrypt/encrypt_io.dart';
 import 'package:pointycastle/asymmetric/api.dart';
 
-void benchmark_encrypt(int count) async {
-  final publicKey = await parseKeyFromFile<RSAPublicKey>('keypair/public.pem');
-  final privKey = await parseKeyFromFile<RSAPrivateKey>('keypair/private.pem');
+void benchmark_encrypt(int count, publicKey, privKey){
   final plainText = 'Lorem ipsum lorem ipsum Lorem ipsum lorem ipsum';
 
   final stopwatchgeneration = Stopwatch()..start();
@@ -18,9 +16,8 @@ void benchmark_encrypt(int count) async {
   print('RSA Encryption executed in ${stopwatch.elapsed}');
 }
 
-void benchmark_decrypt(int count) async {
-  final publicKey = await parseKeyFromFile<RSAPublicKey>('keypair/public.pem');
-  final privKey = await parseKeyFromFile<RSAPrivateKey>('keypair/private.pem');
+void benchmark_decrypt(int count, publicKey, privKey) {
+  
   final plainText = 'Lorem ipsum lorem ipsum Lorem ipsum lorem ipsum';
 
   final stopwatchgeneration = Stopwatch()..start();
@@ -36,7 +33,9 @@ void benchmark_decrypt(int count) async {
   print('RSA Decryption executed in ${stopwatch.elapsed}');
 }
 
-void main() {
-  benchmark_encrypt(10000);
-  benchmark_decrypt(10000);
+void main() async {
+  final publicKey = await parseKeyFromFile<RSAPublicKey>('keypair/public.pem');
+  final privKey = await parseKeyFromFile<RSAPrivateKey>('keypair/private.pem');
+  benchmark_encrypt(1000, publicKey, privKey);
+  benchmark_decrypt(1000, publicKey, privKey);
 }

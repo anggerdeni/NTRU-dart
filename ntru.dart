@@ -2,7 +2,7 @@ import 'helper.dart';
 import 'polynomial.dart';
 
 class NTRU {
-  final int _N = 401;
+  final int _N = 347;
   final int _p = 3;
   final int _q = 2048;
   late Polynomial f;
@@ -46,6 +46,10 @@ class NTRU {
     }
   }
 
+  int get N {
+    return this._N;
+  }
+
   Polynomial get publicKey {
     return this.h;
   }
@@ -54,10 +58,9 @@ class NTRU {
     return [this.f, this.fp];
   }
 
-  Polynomial encrypt(Polynomial message) {
+  Polynomial encrypt(Polynomial message, Polynomial r) {
     if(message.N != _N) throw new Exception('Message should have same N');
-    Polynomial r = generateRandomPolynomial(_N);
-    return (r*h + message).reduce(_q);
+    return (r * this.h + message).reduce(_q);
   }
 
   Polynomial decrypt(Polynomial cipher) {
