@@ -8,4 +8,5 @@ environment:
   sdk: '2.13.1'
 dependencies: 
   encrypt: ^5.0.1
+  pointycastle: ^3.3.4
 dev_dependencies:
