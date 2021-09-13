@@ -14,6 +14,18 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "benchmark",
+      "rootUri": "file:///home/an0nvi/.pub-cache/hosted/pub.dartlang.org/benchmark-0.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "benchmark_harness",
+      "rootUri": "file:///home/an0nvi/.pub-cache/hosted/pub.dartlang.org/benchmark_harness-2.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "clock",
       "rootUri": "file:///home/an0nvi/.pub-cache/hosted/pub.dartlang.org/clock-1.1.0",
       "packageUri": "lib/",
@@ -50,6 +62,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "meta",
+      "rootUri": "file:///home/an0nvi/.pub-cache/hosted/pub.dartlang.org/meta-1.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "pointycastle",
       "rootUri": "file:///home/an0nvi/.pub-cache/hosted/pub.dartlang.org/pointycastle-3.3.4",
       "packageUri": "lib/",
@@ -68,7 +86,7 @@
       "languageVersion": "2.13"
     }
   ],
-  "generated": "2021-09-08T14:59:55.387721Z",
+  "generated": "2021-09-13T16:41:04.352362Z",
   "generator": "pub",
   "generatorVersion": "2.13.1"
 }

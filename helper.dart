@@ -2,38 +2,6 @@ import 'dart:math';
 import 'polynomial.dart';
 import 'dart:convert';
 
-List<Polynomial> egcd(Polynomial a, Polynomial b, int p) {
-  Polynomial d = a.clone();
-  Polynomial v1 = Polynomial.fromDegree(a.N, d: 0, coeff: 0);
-  Polynomial v3 = b.clone();
-  Polynomial u = Polynomial.fromDegree(a.N, d: 0, coeff: 1);
-  if(b.isZero()) {
-    return [u, v1, d];
-  }
-
-  while(!v3.isZero()) {
-    List<Polynomial> tmp = d.div(v3, p);
-    Polynomial q = tmp[0];
-    Polynomial t3 = tmp[1];
-    // if(t3.getDegree() > v3.getDegree()) throw new Exception('Something wrong');
-
-    Polynomial t1 = u.substractPoly(q.multPoly(v1, p), p);
-    u.coefficients = List.from(v1.coefficients);
-    d.coefficients = List.from(v3.coefficients);
-    v1.coefficients = List.from(t1.coefficients);
-    v3.coefficients = List.from(t3.coefficients);
-  }
-
-  List<Polynomial> tmp = d.substractPoly(a.multPoly(u, p), p).div(b, p);
-  Polynomial v = tmp[0];
-  Polynomial r = tmp[1];
-  if(!r.isZero()) {
-    throw new Exception('Division not resulting in 0 ${r.coefficients}');
-  };
-
-  return [u, v, d];
-}
-
 List<int> mult2And(Polynomial a, int mask) {
   List<int> coeffs = List<int>.from(a.coefficients);
   int longMask = (mask<<24) + mask;
@@ -43,16 +11,14 @@ List<int> mult2And(Polynomial a, int mask) {
 
 Polynomial mod2ToModq(Polynomial a, Polynomial Fq, int q) {
   if(q == 2048) {
-    a = a;
-    Fq = Fq;
     int v = 2;
-    while (v < q) {
+    while (v < 2048) {
       v *= 2;
-      Polynomial temp = Fq.clone();
+      Polynomial temp = Fq;
       temp = temp.multiplyInt(2).reduce(v);
       Fq = (a.multPoly(Fq, 2048)).multPoly(Fq, 2048);
       temp = temp.substractPoly(Fq, v);
-      Fq = temp.clone();
+      Fq = temp;
     }
     return Fq;
   } else {
@@ -67,7 +33,7 @@ Polynomial inverseF2(Polynomial a) {
   int N = a.N-1;
   int k = 0;
   Polynomial b = Polynomial.fromDegree(N+1, d: 0);
-  Polynomial c = Polynomial.fromDegree(N+1, d: N, coeff: 0);
+  Polynomial c = Polynomial.fromDegree(N+1, d: 0, coeff: 0);
   Polynomial f = a.clone();
   Polynomial g = new Polynomial.fromDegree(a.N, d: N);
   g.coefficients[0] = -1; // x^N - 1 what ? https://github.com/tbuktu/ntru/blob/78334321f544b9357e7417e935fb4b1a61264976/src/main/java/net/sf/ntru/polynomial/IntegerPolynomial.java#L410
@@ -92,13 +58,13 @@ Polynomial inverseF2(Polynomial a) {
     if (f.isOne()) break;
     if (f.getDegree() < g.getDegree()) {
       // exchange f and g
-      Polynomial temp = f.clone();
-      f.coefficients = List<int>.from(g.coefficients);
-      g.coefficients = List<int>.from(temp.coefficients);
+      Polynomial temp = f;
+      f = g;
+      g = temp;
       // exchange b and c
-      temp = b.clone();
-      b.coefficients = List<int>.from(c.coefficients);
-      c.coefficients = List<int>.from(temp.coefficients);
+      temp = b;
+      b = c;
+      c = temp;
     }
     f = f.addPoly(g, 2);
     b = b.addPoly(c, 2);
@@ -130,7 +96,7 @@ Polynomial inverseF3(Polynomial a) {
   int N = a.N-1;
   int k = 0;
   Polynomial b = Polynomial.fromDegree(N+1, d: 0);
-  Polynomial c = Polynomial.fromDegree(N+1, d: N, coeff: 0);
+  Polynomial c = Polynomial.fromDegree(N+1, d: 0, coeff: 0);
   Polynomial f = a.clone();
   Polynomial g = new Polynomial.fromDegree(a.N, d: N);
   g.coefficients[0] = -1; // x^N - 1
@@ -165,12 +131,12 @@ Polynomial inverseF3(Polynomial a) {
       c = temp;
     }
     if (f.coefficients[0] == g.coefficients[0]) {
-      f = f.substractPoly(g, 3);
-      b = b.substractPoly(c, 3);
+      f = f.substractPolyMod3(g);
+      b = b.substractPolyMod3(c);
     }
     else {
-      f = f.addPoly(g, 3);
-      b = b.addPoly(c, 3);
+      f = f.addPolyMod3(g);
+      b = b.addPolyMod3(c);
     }
   }
   if (b.coefficients[N] != 0) {

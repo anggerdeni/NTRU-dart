@@ -7,6 +7,8 @@ documentation: https://example-pet-store.com/newtify/docs
 environment:
   sdk: '2.13.1'
 dependencies: 
+  benchmark: ^0.3.0
+  benchmark_harness: ^2.0.0
   encrypt: ^5.0.1
   pointycastle: ^3.3.4
 dev_dependencies:

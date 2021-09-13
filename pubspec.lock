@@ -15,6 +15,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  benchmark:
+    dependency: "direct main"
+    description:
+      name: benchmark
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.0"
+  benchmark_harness:
+    dependency: "direct main"
+    description:
+      name: benchmark_harness
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   clock:
     dependency: transitive
     description:
@@ -57,6 +71,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3"
+  meta:
+    dependency: transitive
+    description:
+      name: meta
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.7.0"
   pointycastle:
     dependency: "direct main"
     description:

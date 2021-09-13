@@ -25,7 +25,7 @@ class NTRU {
       while(!inverseFound) {
         try {
           F = generateRandomPolynomial(_N);
-          f = F.multiplyInt(_p).addInt(1).reduce(_p);
+          f = F.multiplyInt(_p).addInt(1).reduceMod3();
           fInvP = inverseF3(f);
           fInvQ = inverseFq(f, _q);
           inverseFound = true;
@@ -60,12 +60,11 @@ class NTRU {
 
   Polynomial encrypt(Polynomial message, Polynomial r) {
     if(message.N != _N) throw new Exception('Message should have same N');
-    return r.multPoly(this.h, _q).addPoly(message, _q);
+    return r.multPolyMod2048(this.h).addPolyMod2048(message);
   }
 
   Polynomial decrypt(Polynomial cipher) {
-    Polynomial a = this.f.multPoly(cipher, this._q).reduceCenterLift(this._q);
-    a = a.reduceCenterLift(this._p);
-    return (this.fp.multPoly(a, this._p)).reduceCenterLift(this._p);
+    Polynomial a = this.f.multPolyModCenterLift2048(cipher);
+    return this.fp.multPolyModCenterLift3(a);
   }
 }
