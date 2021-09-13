@@ -1,5 +1,4 @@
 import 'package:encrypt/encrypt.dart';
-import 'package:encrypt/encrypt_io.dart';
 import 'package:pointycastle/asymmetric/api.dart';
 
 void benchmark_encrypt(int count, publicKey, privKey){

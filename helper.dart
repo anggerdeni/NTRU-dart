@@ -73,12 +73,19 @@ Polynomial inverseF2(Polynomial a) {
   g.coefficients[0] = -1; // x^N - 1 what ? https://github.com/tbuktu/ntru/blob/78334321f544b9357e7417e935fb4b1a61264976/src/main/java/net/sf/ntru/polynomial/IntegerPolynomial.java#L410
 
   while(true) {
-    Polynomial polymX = Polynomial.fromDegree(a.N, d: 1); 
     while (f.coefficients[0] == 0) {
-      f = f.div(polymX, 2)[0];
-      c = c.multPoly(polymX, 2048);
-      f.coefficients[N] = 0;
+      /* f(x) = f(x) / x */
+      for (int i = 1; i < f.N; i++) {
+        f.coefficients[i-1] = f.coefficients[i];
+      }
+      f.coefficients[f.N-1] = 0;
+      
+      /* c(x) = c(x) * x */
+      for (int i = c.N-1; i > 0; i--) {
+        c.coefficients[i] = c.coefficients[i-1];
+      }
       c.coefficients[0] = 0;
+
       k++;
       if (f.isZero()) throw new Exception('Not invertible 1');
     }
@@ -131,23 +138,31 @@ Polynomial inverseF3(Polynomial a) {
   while(true) {
     Polynomial polymX = Polynomial.fromDegree(a.N, d: 1); 
     while (f.coefficients[0] == 0) {
-      f = f.div(polymX, 3)[0];
-      c = c.multPoly(polymX, 3);
-      f.coefficients[N] = 0;
+      /* f(x) = f(x) / x */
+      for (int i = 1; i < f.N; i++) {
+        f.coefficients[i-1] = f.coefficients[i];
+      }
+      f.coefficients[f.N-1] = 0;
+      
+      /* c(x) = c(x) * x */
+      for (int i = c.N-1; i > 0; i--) {
+        c.coefficients[i] = c.coefficients[i-1];
+      }
       c.coefficients[0] = 0;
+
       k++;
       if (f.isZero()) throw new Exception('Not invertible 3');
     }
     if (f.isOne()) break;
     if (f.getDegree() < g.getDegree()) {
       // exchange f and g
-      Polynomial temp = f.clone();
-      f.coefficients = List<int>.from(g.coefficients);
-      g.coefficients = List<int>.from(temp.coefficients);
+      Polynomial temp = f;
+      f = g;
+      g = temp;
       // exchange b and c
-      temp = b.clone();
-      b.coefficients = List<int>.from(c.coefficients);
-      c.coefficients = List<int>.from(temp.coefficients);
+      temp = b;
+      b = c;
+      c = temp;
     }
     if (f.coefficients[0] == g.coefficients[0]) {
       f = f.substractPoly(g, 3);
