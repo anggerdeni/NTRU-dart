@@ -3,10 +3,8 @@ import 'polynomial.dart';
 import 'helper.dart';
 
 void benchmark_encrypt(int count) {
-  final stopwatchgeneration = Stopwatch()..start();
   NTRU ntru = new NTRU();
   int N = ntru.N;
-  // print('NTRU generation executed in ${stopwatchgeneration.elapsed}');
   
   Polynomial msg = generateRandomPolynomial(N);
 
@@ -20,11 +18,9 @@ void benchmark_encrypt(int count) {
 }
 
 void benchmark_decrypt(int count) {
-  final stopwatchgeneration = Stopwatch()..start();
   NTRU ntru = new NTRU();
   int N = ntru.N;
-  // print('NTRU generation executed in ${stopwatchgeneration.elapsed}');
-
+  
   Polynomial msg = generateRandomPolynomial(N);
   Polynomial r = generateRandomPolynomial(N);
   Polynomial e = ntru.encrypt(msg, r);
@@ -40,6 +36,6 @@ void benchmark_decrypt(int count) {
 }
 
 void main() {
-  benchmark_encrypt(1000);
-  benchmark_decrypt(1000);
+  benchmark_encrypt(5000);
+  benchmark_decrypt(5000);
 }
