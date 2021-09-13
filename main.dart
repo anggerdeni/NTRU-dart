@@ -35,6 +35,6 @@ void benchmark_decrypt(int count) {
 }
 
 void main() {
-  benchmark_encrypt(10000);
-  benchmark_decrypt(10000);
+  benchmark_encrypt(100000);
+  benchmark_decrypt(100000);
 }
