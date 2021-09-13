@@ -25,15 +25,15 @@ class NTRU {
       while(!inverseFound) {
         try {
           F = generateRandomPolynomial(_N);
-          f = F.multiplyInt(_p).addInt(1).reduceMod3();
+          f = F.multiplyIntMod3(_p).addIntMod3(1);
           fInvP = inverseF3(f);
-          fInvQ = inverseFq(f, _q);
+          fInvQ = inverseFq(f);
           inverseFound = true;
         } catch(e) {
           continue;
         }
       }
-      testP = fInvP.multPoly(f,_p);
+      testP = fInvP.multPolyMod3(f);
       testQ = fInvQ.multPoly(f,_q);
 
       if(testP.isOne() && testQ.isOne()) {

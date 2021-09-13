@@ -29,67 +29,21 @@ class Polynomial {
     this._N = N;
   }
 
-  Polynomial operator+(Polynomial secondPolynomial) {
-    if(this._N != secondPolynomial.N) throw new Exception('The two polynomials should have the same N');
-    List<int> result = List<int>.from(this._coefficients);
-    List<int> secondData = List<int>.from(secondPolynomial.coefficients);
-    
-    for (int i = 0; i < secondData.length; i += 1) {
-      result[i] += secondData[i];
-    }
-
-    return Polynomial(this._N, result);
-  }
-
-  Polynomial operator-(Polynomial secondPolynomial) {
-    if(this._N != secondPolynomial.N) throw new Exception('The two polynomials should have the same N');
-    List<int> original = List<int>.from(this._coefficients);
-    List<int> pengurang = List<int>.from(secondPolynomial.coefficients);
-    
-    for (int i = 0; i < pengurang.length; i += 1) {
-      original[i] -= pengurang[i];
-    }
-
-    return Polynomial(this._N, original);
-  }
-
-  Polynomial operator*(Polynomial secondPolynomial) {
-    if(this._N != secondPolynomial.N) throw new Exception('The two polynomials should have the same N');
-    List<int> result = new List.filled(this._N, 0);
-    
-    for (int i = 0; i < this._coefficients.length; i += 1) {
-      for (int j = 0; j < secondPolynomial.coefficients.length; j += 1) {
-        result[(i+j) % this._N] += this._coefficients[i] * secondPolynomial.coefficients[j];
-      }
-    }
-
-    return Polynomial(this._N, result);
-  }
-
-  int mod3(int x) {
-    // https://compilers.iecc.com/comparch/article/99-10-056
-    int a = x & 0x33333333; /* even two-bit groups */
-    int b = x & 0xcccccccc; /* odd two-bit groups */
-    int sum = a + (b >> 2); /* sum 0-6 in 8 groups */
-    sum = sum + (sum >> 2); /* sum 0-3 in 8 groups */
-    sum = sum & 0x33333333; /* clear garbage bits */
-    sum = sum + (sum >> 4); /* sum 0-6 in 4 groups */
-    sum = sum + (sum >> 2); /* sum 0-3 in 4 groups */
-    sum = sum & 0x33333333; /* clear garbage bits */
-    sum = sum + (sum >> 8); /* sum 0-6 in 2 groups */
-    sum = sum + (sum >> 2); /* sum 0-3 in 2 groups */
-    sum = sum & 0x33333333; /* clear garbage bits */
-    sum = sum + (sum >> 16); /* sum 0-6 in 1 group */
-    sum = sum + (sum >> 2); /* sum 0-3 in 1 group */
-    sum = sum & 0x3; /* clear garbage bits */
-    return sum;
-  }
-
   Polynomial multiplyInt(int b) {
     List<int> result = [];
     
     for (int i = 0; i < this._coefficients.length; i += 1) {
       result.add(this._coefficients[i] * b);
+    }
+
+    return Polynomial(this._N, result);
+  }
+
+  Polynomial multiplyIntMod3(int b) {
+    List<int> result = [];
+    
+    for (int i = 0; i < this._coefficients.length; i += 1) {
+      result.add((this._coefficients[i] * b)%3);
     }
 
     return Polynomial(this._N, result);
@@ -187,9 +141,22 @@ class Polynomial {
     return c;
   }
 
+  Polynomial addIntMod3(int b) {
+    List<int> result = List.from(this._coefficients);
+    result[result.length - 1] = (result[result.length - 1] + b)%3;
+    
+    return Polynomial(this._N, result);
+  }
+
   Polynomial addPoly( Polynomial b, int modulo) {
     Polynomial c = Polynomial.fromDegree(this.N, d: 0, coeff: 0);
     for (int i = 0; i < this.N; i++) c.coefficients[i] = (this.coefficients[i] + b.coefficients[i])%modulo;
+    return c;
+  }
+
+  Polynomial addPolyMod2( Polynomial b) {
+    Polynomial c = Polynomial.fromDegree(this.N, d: 0, coeff: 0);
+    for (int i = 0; i < this.N; i++) c.coefficients[i] = (this.coefficients[i] + b.coefficients[i])%2;
     return c;
   }
 
@@ -217,25 +184,18 @@ class Polynomial {
     return c;
   }
 
-  Polynomial addInt(int b) {
-    List<int> result = List.from(this._coefficients);
-    result[result.length - 1] += b;
-    
-    return Polynomial(this._N, result);
-  }
-
   List<Polynomial> div(Polynomial secondPolynomial, int p) {
-    Polynomial r = this.clone();
+    Polynomial r = this;
     Polynomial q = Polynomial(this._N, new List.filled(this._N, 0));
 
     int secondPolynomialDegree = secondPolynomial.getDegree();
-    int u = secondPolynomial.getCoeffisienOfDegree(secondPolynomialDegree).modInverse(p);
+    int u = secondPolynomial._coefficients[secondPolynomialDegree].modInverse(p);
     int d;
     
     Polynomial v;
     while(r.getDegree() >= secondPolynomialDegree && !r.isZero()) {
       d = r.getDegree();
-      v = Polynomial.fromDegree(this._N, d: (d - secondPolynomialDegree), coeff: u * (r.getCoeffisienOfDegree(d)));
+      v = Polynomial.fromDegree(this._N, d: (d - secondPolynomialDegree), coeff: u * (r._coefficients[d]));
       r = r.substractPoly(v.multPoly(secondPolynomial, p), p);
       q = q.addPoly(v, p);
     }
@@ -247,67 +207,30 @@ class Polynomial {
     return Polynomial(this._N, this._coefficients.map((elem) => elem%p).toList());
   }
 
-  Polynomial reduceMod3() {
-    return Polynomial(this._N, this._coefficients.map((elem) => elem%3).toList());
-  }
-
-  Polynomial reduceCenterLift(int p) {
-    List<int> result = this._coefficients.map((elem) => modCenterLift(elem, p)).toList();
-    return Polynomial(this._N, result);
-  }
-
-  Polynomial reduceCenterLiftMod3() {
-    List<int> result = this._coefficients.map((elem) => modCenterLiftMod3(elem)).toList();
-    return Polynomial(this._N, result);
-  }
-
-  Polynomial reduceCenterLiftMod2048() {
-    List<int> result = this._coefficients.map((elem) => modCenterLiftMod2048(elem)).toList();
-    return Polynomial(this._N, result);
-  }
-
-  Polynomial reducePower() {
-    List<int> coeff = List.filled(this._N, 0);
-    for (int i = 0; i < this.coefficients.length; i++) {
-      coeff[i%this._N] += this.coefficients[i];
-    }
-    return Polynomial(this._N, coeff);
-  }
-
-  int modCenterLift(int a, int b) {
-      int tmpResult = (b + (a%b)) % b;
-      if((tmpResult - b)*(tmpResult - b) < tmpResult*tmpResult) {
-          return tmpResult - b;
-      }
-      return tmpResult;
-  }
-
   int modCenterLiftMod3(int a) {
-      int tmpResult = (3 + (a%3)) % 3;
-      if((tmpResult - 3)*(tmpResult - 3) < tmpResult*tmpResult) {
+      int tmpResult = (3 + a) % 3;
+      int tmpResult2 = tmpResult - 3;
+      if(tmpResult2*tmpResult2 < tmpResult*tmpResult) {
           return tmpResult - 3;
       }
       return tmpResult;
   }
 
   int modCenterLiftMod2048(int a) {
-      int tmpResult = (2048 + (a%2048)) % 2048;
-      if((tmpResult - 2048)*(tmpResult - 2048) < tmpResult*tmpResult) {
+      int tmpResult = (2048 + a) % 2048;
+      int tmpResult2 = tmpResult - 2048;
+      if(tmpResult2*tmpResult2 < tmpResult*tmpResult) {
           return tmpResult - 2048;
       }
       return tmpResult;
   }
 
-  Polynomial clone() {
-    return Polynomial(this._N, List.from(this._coefficients));
-  }
-
   bool isZero() {
-    return this.getDegree() == 0 && this.getCoeffisienOfDegree(0) == 0;
+    return this._coefficients[0] == 0 && this.getDegree() == 0;
   }
 
   bool isOne() {
-    return this.getDegree() == 0 && this.getCoeffisienOfDegree(0) == 1;
+    return this._coefficients[0] == 1 && this.getDegree() == 0;
   }
 
   int getDegree() {
@@ -315,10 +238,5 @@ class Polynomial {
       if(this._coefficients[i] != 0) return i;
     }
     return 0;
-  }
-
-  int getCoeffisienOfDegree(int degree) {
-    if(degree > this.getDegree()) throw Exception('Degree cannot be greater than polynomial degree');
-    return this._coefficients[degree];
   }
 }

@@ -2,28 +2,17 @@ import 'dart:math';
 import 'polynomial.dart';
 import 'dart:convert';
 
-List<int> mult2And(Polynomial a, int mask) {
-  List<int> coeffs = List<int>.from(a.coefficients);
-  int longMask = (mask<<24) + mask;
-  for (int i=0; i < coeffs.length; i++) coeffs[i] = (coeffs[i]<<1) & longMask;
-  return coeffs;
-}
-
-Polynomial mod2ToModq(Polynomial a, Polynomial Fq, int q) {
-  if(q == 2048) {
-    int v = 2;
-    while (v < 2048) {
-      v *= 2;
-      Polynomial temp = Fq;
-      temp = temp.multiplyInt(2).reduce(v);
-      Fq = (a.multPoly(Fq, 2048)).multPoly(Fq, 2048);
-      temp = temp.substractPoly(Fq, v);
-      Fq = temp;
-    }
-    return Fq;
-  } else {
-    throw new Exception('q must be 2048');
+Polynomial mod2ToMod2048(Polynomial a, Polynomial Fq) {
+  int v = 2;
+  while (v < 2048) {
+    v *= 2;
+    Polynomial temp = Fq;
+    temp = temp.multiplyInt(2).reduce(v);
+    Fq = (a.multPoly(Fq, 2048)).multPoly(Fq, 2048);
+    temp = temp.substractPoly(Fq, v);
+    Fq = temp;
   }
+  return Fq;
 }
 
 Polynomial inverseF2(Polynomial a) {
@@ -34,7 +23,7 @@ Polynomial inverseF2(Polynomial a) {
   int k = 0;
   Polynomial b = Polynomial.fromDegree(N+1, d: 0);
   Polynomial c = Polynomial.fromDegree(N+1, d: 0, coeff: 0);
-  Polynomial f = a.clone();
+  Polynomial f = a;
   Polynomial g = new Polynomial.fromDegree(a.N, d: N);
   g.coefficients[0] = -1; // x^N - 1 what ? https://github.com/tbuktu/ntru/blob/78334321f544b9357e7417e935fb4b1a61264976/src/main/java/net/sf/ntru/polynomial/IntegerPolynomial.java#L410
 
@@ -66,8 +55,8 @@ Polynomial inverseF2(Polynomial a) {
       b = c;
       c = temp;
     }
-    f = f.addPoly(g, 2);
-    b = b.addPoly(c, 2);
+    f = f.addPolyMod2(g);
+    b = b.addPolyMod2(c);
   }
   if (b.coefficients[N] != 0) {
     throw new Exception('Not invertible 2');
@@ -84,9 +73,9 @@ Polynomial inverseF2(Polynomial a) {
   return Fq;
 }
 
-Polynomial inverseFq(Polynomial a, int q) {
+Polynomial inverseFq(Polynomial a) {
   Polynomial Fq = inverseF2(a);
-  return mod2ToModq(a, Fq, q);
+  return mod2ToMod2048(a, Fq);
 }
 
 Polynomial inverseF3(Polynomial a) {
@@ -97,12 +86,11 @@ Polynomial inverseF3(Polynomial a) {
   int k = 0;
   Polynomial b = Polynomial.fromDegree(N+1, d: 0);
   Polynomial c = Polynomial.fromDegree(N+1, d: 0, coeff: 0);
-  Polynomial f = a.clone();
+  Polynomial f = a;
   Polynomial g = new Polynomial.fromDegree(a.N, d: N);
   g.coefficients[0] = -1; // x^N - 1
   
   while(true) {
-    Polynomial polymX = Polynomial.fromDegree(a.N, d: 1); 
     while (f.coefficients[0] == 0) {
       /* f(x) = f(x) / x */
       for (int i = 1; i < f.N; i++) {
@@ -163,7 +151,7 @@ List<int> randomCoefficients(int length, int d, int neg_ones_diff) {
   return result;
 }
 
-Polynomial generateRandomPolynomial(int N, { List<int>? options }) {
+Polynomial generateRandomPolynomial2(int N, { List<int>? options }) {
   List<int> coeff = List.filled(N, 0);
   if(options == null) {
     options = [-1,0,1];
@@ -176,7 +164,7 @@ Polynomial generateRandomPolynomial(int N, { List<int>? options }) {
   return new Polynomial(N, coeff);
 }
 
-Polynomial generateRandomPolynomial2(int N) {
+Polynomial generateRandomPolynomial(int N) {
   List<int> coeff = randomCoefficients(N, (N/3).floor(), -1);
   return new Polynomial(N, coeff);
 }
@@ -187,8 +175,3 @@ bool comparePoly(Polynomial a, Polynomial b) {
   }
   return true;
 }
-
-List<int> str2byteArray(String x) {
-  return utf8.encode(x);
-}
-
