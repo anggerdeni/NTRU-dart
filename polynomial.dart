@@ -76,6 +76,25 @@ class Polynomial {
     return Polynomial(this._N, result);
   }
 
+  Polynomial multPoly( Polynomial b, int modulo) {
+    // todo: modulo ?
+    int N = this.N;
+    Polynomial c = Polynomial.fromDegree(N, d: N-1, coeff: 0);
+    for(int k = 0; k < N; k++) {
+      int ck1 = 0;
+      for(int i = 0; i <= k; i++) {
+        ck1 += this.coefficients[i] * b.coefficients[k-i];
+      }
+      int ck2 = 0;
+      for (int i = k+1; i < N; i++) {
+        ck2 += this.coefficients[i] * b.coefficients[k+N-i];
+      }
+      int ck = c.coefficients[k] + ck1 + ck2;
+      c.coefficients[k] = ck % modulo;
+    }
+    return c;
+  }
+
   Polynomial addInt(int b) {
     List<int> result = List.from(this._coefficients);
     result[result.length - 1] += b;
@@ -84,7 +103,8 @@ class Polynomial {
   }
 
   Polynomial multiplyReducePower(Polynomial secondPolynomial) {
-    Polynomial tmp = this * secondPolynomial;
+    // todo: modulo ?
+    Polynomial tmp = this.multPoly(secondPolynomial, 2048);
     return tmp.reducePower();
   }
 
@@ -100,7 +120,7 @@ class Polynomial {
     while(r.getDegree() >= secondPolynomialDegree && !r.isZero()) {
       d = r.getDegree();
       v = Polynomial.fromDegree(this._N, d: (d - secondPolynomialDegree), coeff: u * (r.getCoeffisienOfDegree(d)));
-      r = (r - v * secondPolynomial).reduce(p);
+      r = (r - v.multPoly(secondPolynomial, p)).reduce(p);
       q = (q + v).reduce(p);
     }
 

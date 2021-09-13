@@ -44,6 +44,6 @@ void main() async {
   var pubk = RSAPublicKey(modulus, publicExponent);
   var privk = RSAPrivateKey(modulus, privateExponent, p, q);
 
-  benchmark_encrypt(5000, pubk, privk);
-  benchmark_decrypt(5000, pubk, privk);
+  benchmark_encrypt(100, pubk, privk);
+  benchmark_decrypt(100, pubk, privk);
 }

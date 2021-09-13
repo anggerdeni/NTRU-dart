@@ -33,14 +33,14 @@ class NTRU {
           continue;
         }
       }
-      testP = (fInvP * f).reduce(_p);
-      testQ = (fInvQ * f).reduce(_q);
+      testP = fInvP.multPoly(f,_p);
+      testQ = fInvQ.multPoly(f,_q);
 
       if(testP.isOne() && testQ.isOne()) {
         this.f = f;
         this.fp = fInvP;
         this.g = g;
-        this.h = (fInvQ.multiplyInt(_p) * g).reduce(_q);
+        this.h = fInvQ.multiplyInt(_p).multPoly(g, _q);
         foundKeyPair = true;
       }
     }
@@ -60,12 +60,12 @@ class NTRU {
 
   Polynomial encrypt(Polynomial message, Polynomial r) {
     if(message.N != _N) throw new Exception('Message should have same N');
-    return (r * this.h + message).reduce(_q);
+    return (r.multPoly(this.h, _q) + message).reduce(_q);
   }
 
   Polynomial decrypt(Polynomial cipher) {
-    Polynomial a = (this.f * cipher).reduceCenterLift(this._q);
+    Polynomial a = this.f.multPoly(cipher, this._q).reduceCenterLift(this._q);
     a = a.reduceCenterLift(this._p);
-    return (this.fp * a).reduceCenterLift(this._p);
+    return (this.fp.multPoly(a, this._p)).reduceCenterLift(this._p);
   }
 }

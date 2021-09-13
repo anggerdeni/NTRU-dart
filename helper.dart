@@ -1,69 +1,6 @@
 import 'dart:math';
 import 'polynomial.dart';
-import 'dart:typed_data';
 import 'dart:convert';
-
-double log2(int x) {
-  return log(x) / log(2);
-}
-
-String I2BSP (int x, int bLen) {
-  if (x >= pow(2, bLen)) throw new Exception('Number too large');
-  return x.toRadixString(2).padLeft(bLen, '0');
-}
-
-int BS2IP (String x) {
-  return int.parse(x, radix: 2);
-}
-
-List<int> I2OSP (int x, int oLen) {
-  // little endian, reverse after finish
-  List<int> result = Uint8List(oLen)..buffer.asByteData().setInt16(0, x, Endian.little);
-  return result;
-}
-
-int OS2IP(List<int> x) {
-  int result = 0;
-  for (int i = 0; i<x.length; i++) {
-    result += x[i] * pow(256, i).floor();
-  }
-  return result;
-}
-
-List<String> RE2BSP(List<int> x, int q) {
-  List<String> result = List.filled(x.length, '');
-  for (int j = 0; j < x.length; j++) {
-    result[j] += I2BSP(x[j] % q, log2(q).ceil());
-  }
-  return result;
-}
-
-List<int> BS2REP(List<String> B, int N, int q) {
-  if (B.length != N *log2(q).ceil()) throw 'bit string incorrect length';
-  List<int> a = List.filled(B.length, 0);
-  for (int j = 0; j < N; j++) {
-    a[j] += BS2IP(B[j]);
-  }
-  return a;
-}
-
-int IGFRBG(int N, int c) {
-  int result = 0;
-  bool success = false;
-  int cLen = (c/8).ceil();
-  Random rand = Random.secure();
-  while (!success) {
-    String b = '';
-    for(int i = 0; i < cLen; i++) {
-      b += I2BSP(rand.nextInt(256), 8);
-    }
-    b = '0'*(c) + b.substring(c);
-    print(b);
-    result = BS2IP(b);
-    if(result < pow(2, c) - (pow(2, c) % N)) success = true;
-  }
-  return result % N;
-}
 
 List<Polynomial> egcd(Polynomial a, Polynomial b, int p) {
   Polynomial d = a.clone();
@@ -80,14 +17,14 @@ List<Polynomial> egcd(Polynomial a, Polynomial b, int p) {
     Polynomial t3 = tmp[1];
     // if(t3.getDegree() > v3.getDegree()) throw new Exception('Something wrong');
 
-    Polynomial t1 = (u - q * v1).reduce(p);
+    Polynomial t1 = (u - q.multPoly(v1, p)).reduce(p);
     u.coefficients = List.from(v1.coefficients);
     d.coefficients = List.from(v3.coefficients);
     v1.coefficients = List.from(t1.coefficients);
     v3.coefficients = List.from(t3.coefficients);
   }
 
-  List<Polynomial> tmp = ((d - a * u).reduce(p).div(b, p));
+  List<Polynomial> tmp = ((d - a.multPoly(u, p)).reduce(p).div(b, p));
   Polynomial v = tmp[0];
   Polynomial r = tmp[1];
   if(!r.isZero()) {
@@ -104,14 +41,6 @@ List<int> mult2And(Polynomial a, int mask) {
   return coeffs;
 }
 
-List<int> subAnd(Polynomial a, Polynomial b, int mask) {
-  List<int> coeffs = List<int>.from(a.coefficients);
-  List<int> coeffs2 = List<int>.from(b.coefficients);
-  int longMask = (mask<<24) + mask;
-  for (int i=0; i < coeffs.length; i++) (0x0800000800000 + coeffs[i] - coeffs2[i]) & longMask;
-  return coeffs;
-}
-
 Polynomial mod2ToModq(Polynomial a, Polynomial Fq, int q) {
   if(q == 2048) {
     a = a;
@@ -121,42 +50,14 @@ Polynomial mod2ToModq(Polynomial a, Polynomial Fq, int q) {
       v *= 2;
       Polynomial temp = Fq.clone();
       temp = temp.multiplyInt(2).reduce(v);
-      Fq = ((a*Fq).reduce(2048)*Fq).reduce(2048);
+      Fq = (a.multPoly(Fq, 2048)).multPoly(Fq, 2048).reduce(2048);
       temp = (temp - Fq).reduce(v);
       Fq = temp.clone();
     }
     return Fq;
   } else {
-    // todo
     throw new Exception('q must be 2048');
-    // int v = 2;
-    // while (v < q) {
-    //   v *= 2;
-    //   Polynomial temp = Fq.clone();
-    //   temp.coefficients = mult2And(temp, v);
-    //   Fq = (a * Fq).reduce(v);
-    //   temp = (temp - Fq).reduce(v);
-    //   Fq = temp.clone();
-    // }
-    // return Fq;
   }
-}
-
-Polynomial inverse(Polynomial a, int p) {
-  List<int> coeffA = List.from(a.coefficients);
-  coeffA.add(0); // padding
-  a = new Polynomial(a.N+1, coeffA);
-  Polynomial XN_1 = new Polynomial.fromDegree(a.N, d: a.N-1);
-  XN_1.coefficients[0] = -1; // x^N - 1
-
-  List<Polynomial>tmp = egcd(a, XN_1, p);
-  Polynomial u = tmp[0];
-  Polynomial d = tmp[2];
-  if(d.getDegree() == 0) {
-    int dInv = d.coefficients[0].modInverse(p);
-    return u.multiplyInt(dInv);
-  }
-  throw new Exception('No inverse found');
 }
 
 Polynomial inverseF2(Polynomial a) {
@@ -175,7 +76,7 @@ Polynomial inverseF2(Polynomial a) {
     Polynomial polymX = Polynomial.fromDegree(a.N, d: 1); 
     while (f.coefficients[0] == 0) {
       f = f.div(polymX, 2)[0];
-      c = c*polymX;
+      c = c.multPoly(polymX, 2048);
       f.coefficients[N] = 0;
       c.coefficients[0] = 0;
       k++;
@@ -231,7 +132,7 @@ Polynomial inverseF3(Polynomial a) {
     Polynomial polymX = Polynomial.fromDegree(a.N, d: 1); 
     while (f.coefficients[0] == 0) {
       f = f.div(polymX, 3)[0];
-      c = c*polymX;
+      c = c.multPoly(polymX, 3);
       f.coefficients[N] = 0;
       c.coefficients[0] = 0;
       k++;
@@ -267,10 +168,8 @@ Polynomial inverseF3(Polynomial a) {
   for (int i=N-1; i>=0; i--) {
     j = i - k;
     if (j < 0) j += N;
-    Fp.coefficients[j] = f.coefficients[0] * b.coefficients[i];
+    Fp.coefficients[j] = (f.coefficients[0] * b.coefficients[i]) % 3;
   }
-  
-  Fp.reduce(3);
   return Fp;
 }
 
@@ -311,3 +210,4 @@ bool comparePoly(Polynomial a, Polynomial b) {
 List<int> str2byteArray(String x) {
   return utf8.encode(x);
 }
+

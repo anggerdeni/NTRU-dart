@@ -20,7 +20,7 @@ void benchmark_encrypt(int count) {
 void benchmark_decrypt(int count) {
   NTRU ntru = new NTRU();
   int N = ntru.N;
-  
+
   Polynomial msg = generateRandomPolynomial(N);
   Polynomial r = generateRandomPolynomial(N);
   Polynomial e = ntru.encrypt(msg, r);
@@ -36,6 +36,6 @@ void benchmark_decrypt(int count) {
 }
 
 void main() {
-  benchmark_encrypt(5000);
-  benchmark_decrypt(5000);
+  benchmark_encrypt(100);
+  benchmark_decrypt(100);
 }
