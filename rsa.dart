@@ -6,7 +6,6 @@ void benchmark_encrypt(int count, publicKey, privKey){
   final plainText = 'A';
   final encrypter = Encrypter(RSA(publicKey: publicKey, privateKey: privKey));
   final stopwatch = Stopwatch()..start();
-
   for (int i = 0; i < count; i++) {
     encrypter.encrypt(plainText);
   }
@@ -20,7 +19,6 @@ void benchmark_decrypt(int count, publicKey, privKey) {
 
   final encrypted = encrypter.encrypt(plainText);
   final stopwatch = Stopwatch()..start();
-
   for (int i = 0; i < count; i++) {
     encrypter.decrypt(encrypted);
   }
@@ -44,6 +42,6 @@ void main() async {
   var pubk = RSAPublicKey(modulus, publicExponent);
   var privk = RSAPrivateKey(modulus, privateExponent, p, q);
 
-  benchmark_encrypt(100, pubk, privk);
-  benchmark_decrypt(100, pubk, privk);
+  benchmark_encrypt(10000, pubk, privk);
+  benchmark_decrypt(10000, pubk, privk);
 }

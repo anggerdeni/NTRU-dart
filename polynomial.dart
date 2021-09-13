@@ -95,6 +95,22 @@ class Polynomial {
     return c;
   }
 
+  Polynomial addPoly( Polynomial b, int modulo) {
+    // todo: modulo ?
+    int N = this.N;
+    Polynomial c = Polynomial.fromDegree(N, d: N-1, coeff: 0);
+    for (int i = 0; i < N; i++) c.coefficients[i] = (this.coefficients[i] + b.coefficients[i])%modulo;
+    return c;
+  }
+
+  Polynomial substractPoly( Polynomial b, int modulo) {
+    // todo: modulo ?
+    int N = this.N;
+    Polynomial c = Polynomial.fromDegree(N, d: N-1, coeff: 0);
+    for (int i = 0; i < N; i++) c.coefficients[i] = (this.coefficients[i] - b.coefficients[i])%modulo;
+    return c;
+  }
+
   Polynomial addInt(int b) {
     List<int> result = List.from(this._coefficients);
     result[result.length - 1] += b;
@@ -120,8 +136,8 @@ class Polynomial {
     while(r.getDegree() >= secondPolynomialDegree && !r.isZero()) {
       d = r.getDegree();
       v = Polynomial.fromDegree(this._N, d: (d - secondPolynomialDegree), coeff: u * (r.getCoeffisienOfDegree(d)));
-      r = (r - v.multPoly(secondPolynomial, p)).reduce(p);
-      q = (q + v).reduce(p);
+      r = r.substractPoly(v.multPoly(secondPolynomial, p), p);
+      q = q.addPoly(v, p);
     }
 
     return [q,r];

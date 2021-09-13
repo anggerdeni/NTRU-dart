@@ -17,14 +17,14 @@ List<Polynomial> egcd(Polynomial a, Polynomial b, int p) {
     Polynomial t3 = tmp[1];
     // if(t3.getDegree() > v3.getDegree()) throw new Exception('Something wrong');
 
-    Polynomial t1 = (u - q.multPoly(v1, p)).reduce(p);
+    Polynomial t1 = u.substractPoly(q.multPoly(v1, p), p);
     u.coefficients = List.from(v1.coefficients);
     d.coefficients = List.from(v3.coefficients);
     v1.coefficients = List.from(t1.coefficients);
     v3.coefficients = List.from(t3.coefficients);
   }
 
-  List<Polynomial> tmp = ((d - a.multPoly(u, p)).reduce(p).div(b, p));
+  List<Polynomial> tmp = d.substractPoly(a.multPoly(u, p), p).div(b, p);
   Polynomial v = tmp[0];
   Polynomial r = tmp[1];
   if(!r.isZero()) {
@@ -50,8 +50,8 @@ Polynomial mod2ToModq(Polynomial a, Polynomial Fq, int q) {
       v *= 2;
       Polynomial temp = Fq.clone();
       temp = temp.multiplyInt(2).reduce(v);
-      Fq = (a.multPoly(Fq, 2048)).multPoly(Fq, 2048).reduce(2048);
-      temp = (temp - Fq).reduce(v);
+      Fq = (a.multPoly(Fq, 2048)).multPoly(Fq, 2048);
+      temp = temp.substractPoly(Fq, v);
       Fq = temp.clone();
     }
     return Fq;
@@ -68,7 +68,7 @@ Polynomial inverseF2(Polynomial a) {
   int k = 0;
   Polynomial b = Polynomial.fromDegree(N+1, d: 0);
   Polynomial c = Polynomial.fromDegree(N+1, d: N, coeff: 0);
-  Polynomial f = a.clone().reduce(2);
+  Polynomial f = a.clone();
   Polynomial g = new Polynomial.fromDegree(a.N, d: N);
   g.coefficients[0] = -1; // x^N - 1 what ? https://github.com/tbuktu/ntru/blob/78334321f544b9357e7417e935fb4b1a61264976/src/main/java/net/sf/ntru/polynomial/IntegerPolynomial.java#L410
 
@@ -93,8 +93,8 @@ Polynomial inverseF2(Polynomial a) {
       b.coefficients = List<int>.from(c.coefficients);
       c.coefficients = List<int>.from(temp.coefficients);
     }
-    f = (f + g).reduce(2);
-    b = (b + c).reduce(2);
+    f = f.addPoly(g, 2);
+    b = b.addPoly(c, 2);
   }
   if (b.coefficients[N] != 0) {
     throw new Exception('Not invertible 2');
@@ -124,7 +124,7 @@ Polynomial inverseF3(Polynomial a) {
   int k = 0;
   Polynomial b = Polynomial.fromDegree(N+1, d: 0);
   Polynomial c = Polynomial.fromDegree(N+1, d: N, coeff: 0);
-  Polynomial f = a.clone().reduce(3);
+  Polynomial f = a.clone();
   Polynomial g = new Polynomial.fromDegree(a.N, d: N);
   g.coefficients[0] = -1; // x^N - 1
   
@@ -150,12 +150,12 @@ Polynomial inverseF3(Polynomial a) {
       c.coefficients = List<int>.from(temp.coefficients);
     }
     if (f.coefficients[0] == g.coefficients[0]) {
-      f = (f - g).reduce(3);
-      b = (b - c).reduce(3);
+      f = f.substractPoly(g, 3);
+      b = b.substractPoly(c, 3);
     }
     else {
-      f = (f + g).reduce(3);
-      b = (b + c).reduce(3);
+      f = f.addPoly(g, 3);
+      b = b.addPoly(c, 3);
     }
   }
   if (b.coefficients[N] != 0) {

@@ -7,10 +7,9 @@ void benchmark_encrypt(int count) {
   int N = ntru.N;
   
   Polynomial msg = generateRandomPolynomial(N);
+  Polynomial r = generateRandomPolynomial(N);
 
   final stopwatch = Stopwatch()..start();
-
-  Polynomial r = generateRandomPolynomial(N);
   for (int i = 0; i < count; i++) {
     ntru.encrypt(msg, r);
   }
@@ -36,6 +35,6 @@ void benchmark_decrypt(int count) {
 }
 
 void main() {
-  benchmark_encrypt(100);
-  benchmark_decrypt(100);
+  benchmark_encrypt(10000);
+  benchmark_decrypt(10000);
 }

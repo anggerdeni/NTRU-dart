@@ -60,7 +60,7 @@ class NTRU {
 
   Polynomial encrypt(Polynomial message, Polynomial r) {
     if(message.N != _N) throw new Exception('Message should have same N');
-    return (r.multPoly(this.h, _q) + message).reduce(_q);
+    return r.multPoly(this.h, _q).addPoly(message, _q);
   }
 
   Polynomial decrypt(Polynomial cipher) {
