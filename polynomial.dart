@@ -1,5 +1,3 @@
-import 'dart:math';
-
 class Polynomial {
   int _N;
   List<int> _coefficients = [];
@@ -148,12 +146,6 @@ class Polynomial {
     return Polynomial(this._N, result);
   }
 
-  Polynomial addPoly( Polynomial b, int modulo) {
-    Polynomial c = Polynomial.fromDegree(this.N, d: 0, coeff: 0);
-    for (int i = 0; i < this.N; i++) c.coefficients[i] = (this.coefficients[i] + b.coefficients[i])%modulo;
-    return c;
-  }
-
   Polynomial addPolyMod2( Polynomial b) {
     Polynomial c = Polynomial.fromDegree(this.N, d: 0, coeff: 0);
     for (int i = 0; i < this.N; i++) c.coefficients[i] = (this.coefficients[i] + b.coefficients[i])%2;
@@ -182,25 +174,6 @@ class Polynomial {
     Polynomial c = Polynomial.fromDegree(this.N, d: 0, coeff: 0);
     for (int i = 0; i < this.N; i++) c.coefficients[i] = (this.coefficients[i] - b.coefficients[i])%3;
     return c;
-  }
-
-  List<Polynomial> div(Polynomial secondPolynomial, int p) {
-    Polynomial r = this;
-    Polynomial q = Polynomial(this._N, new List.filled(this._N, 0));
-
-    int secondPolynomialDegree = secondPolynomial.getDegree();
-    int u = secondPolynomial._coefficients[secondPolynomialDegree].modInverse(p);
-    int d;
-    
-    Polynomial v;
-    while(r.getDegree() >= secondPolynomialDegree && !r.isZero()) {
-      d = r.getDegree();
-      v = Polynomial.fromDegree(this._N, d: (d - secondPolynomialDegree), coeff: u * (r._coefficients[d]));
-      r = r.substractPoly(v.multPoly(secondPolynomial, p), p);
-      q = q.addPoly(v, p);
-    }
-
-    return [q,r];
   }
 
   Polynomial reduce(int p) {

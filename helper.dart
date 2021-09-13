@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'polynomial.dart';
-import 'dart:convert';
 
 Polynomial mod2ToMod2048(Polynomial a, Polynomial Fq) {
   int v = 2;
