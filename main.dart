@@ -2,7 +2,7 @@ import 'ntru.dart';
 import 'polynomial.dart';
 import 'helper.dart';
 
-void benchmark_encrypt(int count) {
+String benchmark_ntru_encrypt(int count) {
   NTRU ntru = new NTRU();
   int N = ntru.N;
   
@@ -14,10 +14,10 @@ void benchmark_encrypt(int count) {
   for (int i = 0; i < count; i++) {
     ntru.encrypt(msg, r);
   }
-  print('NTRU encryption executed in ${stopwatch.elapsed}');
+  return 'NTRU encryption executed in ${stopwatch.elapsed}';
 }
 
-void benchmark_decrypt(int count) {
+String benchmark_ntru_decrypt(int count) {
   NTRU ntru = new NTRU();
   int N = ntru.N;
 
@@ -33,10 +33,10 @@ void benchmark_decrypt(int count) {
   for (int i = 0; i < count; i++) {
     ntru.decrypt(e);
   }
-  print('NTRU decryption executed in ${stopwatch.elapsed}');
+  return 'NTRU decryption executed in ${stopwatch.elapsed}';
 }
 
-void benchmark_key_exchange(int count) {
+String benchmark_ntru_key_exchange(int count) {
   NTRU ntru = new NTRU();
   int N = ntru.N;
 
@@ -59,12 +59,12 @@ void benchmark_key_exchange(int count) {
     e1 = ntru.encrypt(msg1, r);
     final_key..addAll(key1)..addAll(polynomialToListOfInt(ntru.decrypt(e2)));
   }
-  print('NTRU key exchange executed in ${stopwatch.elapsed}');
+  return 'NTRU key exchange executed in ${stopwatch.elapsed}';
 }
 
 
 void main() {
-  // benchmark_encrypt(1000);
-  // benchmark_decrypt(1000);
-  benchmark_key_exchange(1000);
+  // print(benchmark_ntru_encrypt(1000));
+  // print(benchmark_ntru_decrypt(1000));
+  print(benchmark_ntru_key_exchange(1000));
 }

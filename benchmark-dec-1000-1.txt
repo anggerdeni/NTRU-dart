@@ -1,0 +1,30 @@
+NTRU decryption executed in 0:00:00.635853
+RSA decryption executed in 0:00:51.715274
+--------------------------------------------------------
+NTRU decryption executed in 0:00:00.594256
+RSA decryption executed in 0:00:51.005540
+--------------------------------------------------------
+NTRU decryption executed in 0:00:00.585354
+RSA decryption executed in 0:00:50.919900
+--------------------------------------------------------
+NTRU decryption executed in 0:00:00.586431
+RSA decryption executed in 0:00:50.813187
+--------------------------------------------------------
+NTRU decryption executed in 0:00:00.594190
+RSA decryption executed in 0:00:50.787768
+--------------------------------------------------------
+NTRU decryption executed in 0:00:00.587920
+RSA decryption executed in 0:00:50.806619
+--------------------------------------------------------
+NTRU decryption executed in 0:00:00.585636
+RSA decryption executed in 0:00:50.908768
+--------------------------------------------------------
+NTRU decryption executed in 0:00:00.587550
+RSA decryption executed in 0:00:50.885185
+--------------------------------------------------------
+NTRU decryption executed in 0:00:00.586343
+RSA decryption executed in 0:00:50.824695
+--------------------------------------------------------
+NTRU decryption executed in 0:00:00.590701
+RSA decryption executed in 0:00:50.798098
+--------------------------------------------------------
