@@ -1,7 +1,6 @@
 import 'ntru.dart';
 import 'polynomial.dart';
 import 'helper.dart';
-import 'dart:convert';
 
 void benchmark_encrypt(int count) {
   NTRU ntru = new NTRU();
