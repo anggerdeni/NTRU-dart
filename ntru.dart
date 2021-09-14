@@ -2,7 +2,7 @@ import 'helper.dart';
 import 'polynomial.dart';
 
 class NTRU {
-  final int _N = 347;
+  final int _N = 397;
   final int _p = 3;
   final int _q = 2048;
   late Polynomial f;

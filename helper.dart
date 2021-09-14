@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:convert';
 import 'polynomial.dart';
 
 Polynomial mod2ToMod2048(Polynomial a, Polynomial Fq) {
@@ -173,4 +174,51 @@ bool comparePoly(Polynomial a, Polynomial b) {
     if(a.coefficients[i] != b.coefficients[i]) return false;
   }
   return true;
+}
+
+List<int> generateRandomInts(int n) {
+  var random = Random.secure();
+  var values = List<int>.generate(n, (i) => random.nextInt(256));
+  return values;
+}
+
+String generateRandomBytes(int n) {
+  var random = Random.secure();
+  var values = List<int>.generate(n, (i) => random.nextInt(256));
+  return base64.encode(values);
+}
+
+Polynomial listOfIntToPolynomial(List<int> ints, int N) {
+  List<int> coeffs = new List.filled(N, 0);
+  int idx = 0;
+  ints.forEach((element) {
+    List<int> tmp = element.toRadixString(2).padLeft(8,'0').split('').map((val) => int.parse(val)).toList();
+    for(int i = 0; i < tmp.length; i++) {
+      coeffs[idx+i] = tmp[i];
+    }
+    idx += tmp.length;
+  });
+  return new Polynomial(N, coeffs);
+}
+
+String polynomialToBase64(Polynomial a) {
+  int numChunks = 16;
+
+  List<int> bytes = [];
+  String str = a.coefficients.join();
+  for(int i = 0, o = 0; i < numChunks; i++, o+=8) {
+    bytes.add(int.parse(str.substring(o, o+8), radix: 2));
+  }
+  return base64.encode(bytes);
+}
+
+List<int> polynomialToListOfInt(Polynomial a) {
+  int numChunks = 16;
+
+  List<int> bytes = [];
+  String str = a.coefficients.join();
+  for(int i = 0, o = 0; i < numChunks; i++, o+=8) {
+    bytes.add(int.parse(str.substring(o, o+8), radix: 2));
+  }
+  return bytes;
 }
