@@ -57,15 +57,14 @@ void benchmark_key_exchange(int count) {
   final stopwatch = Stopwatch()..start();
   for (int i = 0; i < count; i++) {
     e1 = ntru.encrypt(msg1, r);
-    d = ntru.decrypt(e2);
-    final_key..addAll(key1)..addAll(polynomialToListOfInt(d));
+    final_key..addAll(key1)..addAll(polynomialToListOfInt(ntru.decrypt(e2)));
   }
   print('NTRU key exchange executed in ${stopwatch.elapsed}');
 }
 
 
 void main() {
-  // benchmark_encrypt(10000);
-  // benchmark_decrypt(10000);
-  benchmark_key_exchange(10000);
+  // benchmark_encrypt(1000);
+  // benchmark_decrypt(1000);
+  benchmark_key_exchange(1000);
 }

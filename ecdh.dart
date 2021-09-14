@@ -16,5 +16,5 @@ void main() async {
   final aliceKeyPair = await algorithm.newKeyPair();
   final bobKeyPair = await algorithm.newKeyPair();
   final bobPublicKey = await bobKeyPair.extractPublicKey();
-  benchmark_key_exchange(10000, algorithm, aliceKeyPair, bobKeyPair, bobPublicKey);
+  benchmark_key_exchange(1000, algorithm, aliceKeyPair, bobKeyPair, bobPublicKey);
 }
