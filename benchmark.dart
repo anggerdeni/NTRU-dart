@@ -3,7 +3,7 @@ import 'rsa.dart';
 import 'x25519.dart';
 
 void main() async {
-  int count = 1000;
+  int count = 10000;
   var x25519, ntru, rsa;
   var x25519_e, ntru_e, rsa_e;
   var x25519_d, ntru_d, rsa_d;
@@ -25,11 +25,11 @@ void main() async {
     // print('--------------------------------------------------------');
 
     /** benchmark encryption */
-    // ntru_e = benchmark_ntru_encrypt(count);
+    ntru_e = benchmark_ntru_encrypt(count);
     // rsa_e = benchmark_rsa_encrypt(count);
-    // print(ntru_e);
+    print(ntru_e);
     // print(rsa_e);
-    // print('--------------------------------------------------------');
+    print('--------------------------------------------------------');
 
     /** benchmark decryption */
     // ntru_d = benchmark_ntru_decrypt(count);

@@ -3,13 +3,13 @@ void main() {
   int res;
   var stopwatch = Stopwatch()..start();
   for (int i = 0; i < count; i++) {
-    res = 3 % 2048;
+    res = 1342 % 2048;
   }
   print('Ordinary mod (%) ${stopwatch.elapsed}');
 
   stopwatch = Stopwatch()..start();
   for (int i = 0; i < count; i++) {
-    res = 3 & 2047;
+    res = 1342 & 2047;
   }
   print('Bit operation mod ${stopwatch.elapsed}');
 }

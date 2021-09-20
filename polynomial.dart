@@ -107,7 +107,7 @@ class Polynomial {
         ck2 += this.coefficients[i] * b.coefficients[k + N - i];
       }
       int ck = c.coefficients[k] + ck1 + ck2;
-      c.coefficients[k] = ck % 2048;
+      c.coefficients[k] = ck & 2047;
     }
     return c;
   }
@@ -172,7 +172,7 @@ class Polynomial {
   Polynomial addPolyMod2048(Polynomial b) {
     Polynomial c = Polynomial.fromDegree(this.N, d: 0, coeff: 0);
     for (int i = 0; i < this.N; i++)
-      c.coefficients[i] = (this.coefficients[i] + b.coefficients[i]) % 2048;
+      c.coefficients[i] = (this.coefficients[i] + b.coefficients[i]) & 2047;
     return c;
   }
 
@@ -205,7 +205,7 @@ class Polynomial {
   }
 
   int modCenterLiftMod2048(int a) {
-    int tmpResult = (2048 + a) % 2048;
+    int tmpResult = (2048 + a) & 2047;
     int tmpResult2 = tmpResult - 2048;
     if (tmpResult2 * tmpResult2 < tmpResult * tmpResult) {
       return tmpResult - 2048;
