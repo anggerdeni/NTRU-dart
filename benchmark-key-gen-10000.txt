@@ -1,0 +1,30 @@
+--------------------------------------------------------
+NTRU encryption executed in 0:01:39.301576
+NTRUMethod2 encryption executed in 0:01:43.835305
+--------------------------------------------------------
+NTRU encryption executed in 0:01:39.225565
+NTRUMethod2 encryption executed in 0:01:44.467661
+--------------------------------------------------------
+NTRU encryption executed in 0:01:39.285082
+NTRUMethod2 encryption executed in 0:01:44.046105
+--------------------------------------------------------
+NTRU encryption executed in 0:01:39.191864
+NTRUMethod2 encryption executed in 0:01:43.877163
+--------------------------------------------------------
+NTRU encryption executed in 0:01:39.246499
+NTRUMethod2 encryption executed in 0:01:43.835532
+--------------------------------------------------------
+NTRU encryption executed in 0:01:39.510044
+NTRUMethod2 encryption executed in 0:01:43.852477
+--------------------------------------------------------
+NTRU encryption executed in 0:01:39.253039
+NTRUMethod2 encryption executed in 0:01:43.839614
+--------------------------------------------------------
+NTRU encryption executed in 0:01:39.271635
+NTRUMethod2 encryption executed in 0:01:43.835399
+--------------------------------------------------------
+NTRU encryption executed in 0:01:39.433858
+NTRUMethod2 encryption executed in 0:01:43.909191
+--------------------------------------------------------
+NTRU encryption executed in 0:01:39.212114
+NTRUMethod2 encryption executed in 0:01:43.846077

@@ -1,0 +1,30 @@
+--------------------------------------------------------
+NTRU decryption executed in 0:01:00.491122
+NTRUMethod2 decryption executed in 0:01:00.691609
+--------------------------------------------------------
+NTRU decryption executed in 0:00:59.907068
+NTRUMethod2 decryption executed in 0:00:59.098054
+--------------------------------------------------------
+NTRU decryption executed in 0:00:59.308815
+NTRUMethod2 decryption executed in 0:00:58.837221
+--------------------------------------------------------
+NTRU decryption executed in 0:00:58.705579
+NTRUMethod2 decryption executed in 0:00:58.752734
+--------------------------------------------------------
+NTRU decryption executed in 0:00:59.647681
+NTRUMethod2 decryption executed in 0:00:58.653770
+--------------------------------------------------------
+NTRU decryption executed in 0:00:58.738924
+NTRUMethod2 decryption executed in 0:00:58.714447
+--------------------------------------------------------
+NTRU decryption executed in 0:00:58.665179
+NTRUMethod2 decryption executed in 0:00:58.679608
+--------------------------------------------------------
+NTRU decryption executed in 0:00:58.807268
+NTRUMethod2 decryption executed in 0:00:58.770412
+--------------------------------------------------------
+NTRU decryption executed in 0:00:58.669574
+NTRUMethod2 decryption executed in 0:00:58.699988
+--------------------------------------------------------
+NTRU decryption executed in 0:00:58.666410
+NTRUMethod2 decryption executed in 0:00:58.661470

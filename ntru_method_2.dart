@@ -1,7 +1,7 @@
 import 'helper.dart';
 import 'polynomial.dart';
 
-class NTRU {
+class NTRUMethod2 {
   final int _N = 397;
   final int _p = 3;
   final int _q = 2048;
@@ -10,9 +10,11 @@ class NTRU {
   late Polynomial g;
   late Polynomial h;
 
-  NTRU() {
+  NTRUMethod2() {
     Polynomial f = new Polynomial(1, [0]);
-    Polynomial F = new Polynomial(1, [0]);
+    Polynomial f1 = new Polynomial(1, [0]);
+    Polynomial f2 = new Polynomial(1, [0]);
+    Polynomial f3 = new Polynomial(1, [0]);
     Polynomial g = generateRandomPolynomial(_N);
     Polynomial fInvP = new Polynomial(1, [0]);
     Polynomial fInvQ = new Polynomial(1, [0]);
@@ -24,8 +26,10 @@ class NTRU {
       bool inverseFound = false;
       while(!inverseFound) {
         try {
-          F = generateRandomPolynomial(_N);
-          f = F.multiplyIntMod3(_p).addIntMod3(1);
+          f1 = generateRandomPolynomialMethod2(_N);
+          f2 = generateRandomPolynomialMethod2(_N);
+          f3 = generateRandomPolynomialMethod2(_N);
+          f = f1.multPoly(f2, 3).addPolyMod3(f3).multiplyIntMod3(_p).addIntMod3(1);
           fInvP = inverseF3(f);
           fInvQ = inverseFq(f);
           inverseFound = true;
@@ -46,7 +50,7 @@ class NTRU {
     }
   }
 
-  NTRU.fromKeyPair(String strH, String strF, String strFp) {
+  NTRUMethod2.fromKeyPair(String strH, String strF, String strFp) {
     this.h = Polynomial.fromCommaSeparatedCoefficients(this._N, strH);
     this.f = Polynomial.fromCommaSeparatedCoefficients(this._N, strF);
     this.fp = Polynomial.fromCommaSeparatedCoefficients(this._N, strFp);

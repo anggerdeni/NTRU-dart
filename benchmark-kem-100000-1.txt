@@ -1,30 +1,32 @@
 NTRU key exchange executed in 0:01:33.598450
-ECDH key exchange executed in 0:01:38.887786
+X25519 key exchange executed in 0:01:38.887786
 --------------------------------------------------------
 NTRU key exchange executed in 0:01:33.650711
-ECDH key exchange executed in 0:01:38.488266
+X25519 key exchange executed in 0:01:38.488266
 --------------------------------------------------------
 NTRU key exchange executed in 0:01:33.638761
-ECDH key exchange executed in 0:01:38.330314
+X25519 key exchange executed in 0:01:38.330314
 --------------------------------------------------------
 NTRU key exchange executed in 0:01:33.534858
-ECDH key exchange executed in 0:01:38.253355
+X25519 key exchange executed in 0:01:38.253355
 --------------------------------------------------------
 NTRU key exchange executed in 0:01:33.709347
-ECDH key exchange executed in 0:01:38.509090
+X25519 key exchange executed in 0:01:38.509090
 --------------------------------------------------------
 NTRU key exchange executed in 0:01:33.654427
-ECDH key exchange executed in 0:01:38.396007
+X25519 key exchange executed in 0:01:38.396007
 --------------------------------------------------------
 NTRU key exchange executed in 0:01:33.664378
-ECDH key exchange executed in 0:01:38.562370
+X25519 key exchange executed in 0:01:38.562370
 --------------------------------------------------------
 NTRU key exchange executed in 0:01:33.811450
-ECDH key exchange executed in 0:01:38.553831
+X25519 key exchange executed in 0:01:38.553831
 --------------------------------------------------------
 NTRU key exchange executed in 0:01:33.709732
-ECDH key exchange executed in 0:01:38.419280
+X25519 key exchange executed in 0:01:38.419280
 --------------------------------------------------------
 NTRU key exchange executed in 0:01:33.605049
-ECDH key exchange executed in 0:01:38.406136
+X25519 key exchange executed in 0:01:38.406136
 --------------------------------------------------------
+
+

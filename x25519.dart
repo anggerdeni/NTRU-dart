@@ -1,6 +1,6 @@
 import 'package:cryptography/cryptography.dart';
 
-Future<String> benchmark_ecdh_key_exchange(int count) async {
+Future<String> benchmark_x25519_key_exchange(int count) async {
   final algorithm = X25519();
   final aliceKeyPair = await algorithm.newKeyPair();
   final bobKeyPair = await algorithm.newKeyPair();
@@ -13,9 +13,9 @@ Future<String> benchmark_ecdh_key_exchange(int count) async {
       remotePublicKey: bobPublicKey,
     );
   }
-  return 'ECDH key exchange executed in ${stopwatch.elapsed}';
+  return 'X25519 key exchange executed in ${stopwatch.elapsed}';
 }
 
 void main() {
-  print(benchmark_ecdh_key_exchange(1000));
+  print(benchmark_x25519_key_exchange(1000));
 }

@@ -1,40 +1,54 @@
 NTRU key exchange executed in 0:00:00.932306
-ECDH key exchange executed in 0:00:00.994158
+X25519 key exchange executed in 0:00:00.994158
 RSA key exchange executed in 0:00:51.419331
 --------------------------------------------------------
 NTRU key exchange executed in 0:00:00.917971
-ECDH key exchange executed in 0:00:01.004832
+X25519 key exchange executed in 0:00:01.004832
 RSA key exchange executed in 0:00:51.348664
 --------------------------------------------------------
 NTRU key exchange executed in 0:00:00.918162
-ECDH key exchange executed in 0:00:00.993637
+X25519 key exchange executed in 0:00:00.993637
 RSA key exchange executed in 0:00:51.285853
 --------------------------------------------------------
 NTRU key exchange executed in 0:00:00.926044
-ECDH key exchange executed in 0:00:00.990733
+X25519 key exchange executed in 0:00:00.990733
 RSA key exchange executed in 0:00:51.296556
 --------------------------------------------------------
 NTRU key exchange executed in 0:00:00.916789
-ECDH key exchange executed in 0:00:00.990589
+X25519 key exchange executed in 0:00:00.990589
 RSA key exchange executed in 0:00:51.270591
 --------------------------------------------------------
 NTRU key exchange executed in 0:00:00.917736
-ECDH key exchange executed in 0:00:00.983457
+X25519 key exchange executed in 0:00:00.983457
 RSA key exchange executed in 0:00:51.305881
 --------------------------------------------------------
 NTRU key exchange executed in 0:00:00.911718
-ECDH key exchange executed in 0:00:00.987156
+X25519 key exchange executed in 0:00:00.987156
 RSA key exchange executed in 0:00:51.376649
 --------------------------------------------------------
 NTRU key exchange executed in 0:00:00.918018
-ECDH key exchange executed in 0:00:00.988122
+X25519 key exchange executed in 0:00:00.988122
 RSA key exchange executed in 0:00:51.263804
 --------------------------------------------------------
 NTRU key exchange executed in 0:00:00.913677
-ECDH key exchange executed in 0:00:00.980854
+X25519 key exchange executed in 0:00:00.980854
 RSA key exchange executed in 0:00:51.337569
 --------------------------------------------------------
 NTRU key exchange executed in 0:00:00.912104
-ECDH key exchange executed in 0:00:00.988814
+X25519 key exchange executed in 0:00:00.988814
 RSA key exchange executed in 0:00:51.432170
 --------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+

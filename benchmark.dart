@@ -1,12 +1,12 @@
 import 'main.dart';
 import 'rsa.dart';
-import 'ecdh.dart';
+import 'x25519.dart';
 
 void main() async {
   int count = 1000;
-  var ecdh, ntru, rsa;
-  var ecdh_e, ntru_e, rsa_e;
-  var ecdh_d, ntru_d, rsa_d;
+  var x25519, ntru, rsa;
+  var x25519_e, ntru_e, rsa_e;
+  var x25519_d, ntru_d, rsa_d;
   /**
    * 
     benchmark_rsa_encrypt
@@ -16,11 +16,11 @@ void main() async {
    */
   for(int i = 0; i < 10; i++) {
     /** benchmark key exchange */
-    // ecdh = await benchmark_ecdh_key_exchange(count);
+    // x25519 = await benchmark_x25519_key_exchange(count);
     // rsa = benchmark_rsa_key_exchange(count);
     // ntru = benchmark_ntru_key_exchange(count);
     // print(ntru);
-    // print(ecdh);
+    // print(x25519);
     // print(rsa);
     // print('--------------------------------------------------------');
 

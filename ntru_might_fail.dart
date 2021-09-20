@@ -1,7 +1,7 @@
 import 'helper.dart';
 import 'polynomial.dart';
 
-class NTRU {
+class NTRUMightFail {
   final int _N = 397;
   final int _p = 3;
   final int _q = 2048;
@@ -10,7 +10,7 @@ class NTRU {
   late Polynomial g;
   late Polynomial h;
 
-  NTRU() {
+  NTRUMightFail() {
     Polynomial f = new Polynomial(1, [0]);
     Polynomial F = new Polynomial(1, [0]);
     Polynomial g = generateRandomPolynomial(_N);
@@ -46,7 +46,7 @@ class NTRU {
     }
   }
 
-  NTRU.fromKeyPair(String strH, String strF, String strFp) {
+  NTRUMightFail.fromKeyPair(String strH, String strF, String strFp) {
     this.h = Polynomial.fromCommaSeparatedCoefficients(this._N, strH);
     this.f = Polynomial.fromCommaSeparatedCoefficients(this._N, strF);
     this.fp = Polynomial.fromCommaSeparatedCoefficients(this._N, strFp);
@@ -72,6 +72,6 @@ class NTRU {
 
   Polynomial decrypt(Polynomial cipher) {
     Polynomial a = this.f.multPolyModCenterLift2048(cipher);
-    return this.fp.multPolyModCenterLift3(a);
+    return this.fp.multPolyMod3(a);
   }
 }

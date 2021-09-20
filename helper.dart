@@ -151,7 +151,7 @@ List<int> randomCoefficients(int length, int d, int neg_ones_diff) {
   return result;
 }
 
-Polynomial generateRandomPolynomial2(int N, { List<int>? options }) {
+Polynomial generateRandomPolynomial(int N, { List<int>? options }) {
   List<int> coeff = List.filled(N, 0);
   if(options == null) {
     options = [-1,0,1];
@@ -164,7 +164,12 @@ Polynomial generateRandomPolynomial2(int N, { List<int>? options }) {
   return new Polynomial(N, coeff);
 }
 
-Polynomial generateRandomPolynomial(int N) {
+Polynomial generateRandomPolynomial2(int N) {
+  List<int> coeff = randomCoefficients(N, (N/3).floor(), -1);
+  return new Polynomial(N, coeff);
+}
+
+Polynomial generateRandomPolynomialMethod2(int N) {
   List<int> coeff = randomCoefficients(N, (N/3).floor(), -1);
   return new Polynomial(N, coeff);
 }
