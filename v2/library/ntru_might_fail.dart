@@ -25,7 +25,7 @@ class NTRUMightFail {
       while(!inverseFound) {
         try {
           F = generateRandomPolynomial(_N);
-          f = F.multiplyIntMod3(_p).addIntMod3(1);
+          f = F.multiplyIntModInt(_p, 3).addIntModInt(1, 3);
           fInvP = inverseF3(f);
           fInvQ = inverseFq(f, this._q);
           inverseFound = true;
@@ -33,7 +33,7 @@ class NTRUMightFail {
           continue;
         }
       }
-      testP = fInvP.multPolyMod3(f);
+      testP = fInvP.multPolyModInt(f, 3);
       testQ = fInvQ.multPoly(f,_q);
 
       if(testP.isOne() && testQ.isOne()) {
@@ -72,6 +72,6 @@ class NTRUMightFail {
 
   Polynomial decrypt(Polynomial cipher) {
     Polynomial a = this.f.multPolyModCenterLiftPowerOfTwo(cipher, this._q);
-    return this.fp.multPolyMod3(a);
+    return this.fp.multPolyModInt(a, 3);
   }
 }

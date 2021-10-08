@@ -29,7 +29,7 @@ class NTRUMethod2 {
           f1 = generateRandomPolynomialMethod2(_N);
           f2 = generateRandomPolynomialMethod2(_N);
           f3 = generateRandomPolynomialMethod2(_N);
-          f = f1.multPoly(f2, 3).addPolyMod3(f3).multiplyIntMod3(_p).addIntMod3(1);
+          f = f1.multPoly(f2, 3).addPolyModInt(f3, 3).multiplyIntModInt(_p, 3).addIntModInt(1, 3);
           fInvP = inverseF3(f);
           fInvQ = inverseFq(f, this._q);
           inverseFound = true;
@@ -37,7 +37,7 @@ class NTRUMethod2 {
           continue;
         }
       }
-      testP = fInvP.multPolyMod3(f);
+      testP = fInvP.multPolyModInt(f, 3);
       testQ = fInvQ.multPoly(f,_q);
 
       if(testP.isOne() && testQ.isOne()) {
@@ -71,11 +71,11 @@ class NTRUMethod2 {
 
   Polynomial encrypt(Polynomial message, Polynomial r) {
     if(message.N != _N) throw new Exception('Message should have same N');
-    return r.multPolyMod2048(this.h).addPolyMod2048(message);
+    return r.multPolyModPowerOfTwo(this.h, this._q).addPolyModPowerOfTwo(message, this._q);
   }
 
   Polynomial decrypt(Polynomial cipher) {
-    Polynomial a = this.f.multPolyModCenterLift2048(cipher);
-    return this.fp.multPolyModCenterLift3(a);
+    Polynomial a = this.f.multPolyModCenterLiftPowerOfTwo(cipher, this._q);
+    return this.fp.multPolyModCenterLiftInt(a, 3);
   }
 }

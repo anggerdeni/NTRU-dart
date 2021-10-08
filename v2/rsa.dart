@@ -70,14 +70,14 @@ String benchmark_rsa_key_exchange(int count) {
   final msg2 = new String.fromCharCodes(base64.decode(generateRandomBytes(16)));
   final encrypter = Encrypter(RSA(publicKey: publicKey, privateKey: privKey));
 
-  var e1 = encrypter.encrypt(msg1);
+  encrypter.encrypt(msg1);
   var e2 = encrypter.encrypt(msg2);
   var d;
   List<int> final_key = [];
 
   final stopwatch = Stopwatch()..start();
   for (int i = 0; i < count; i++) {
-    e1 = encrypter.encrypt(msg1);
+    encrypter.encrypt(msg1);
     d = encrypter.decrypt(e2);
     final_key..addAll(utf8.encode(msg1))..addAll(utf8.encode(d));
   }

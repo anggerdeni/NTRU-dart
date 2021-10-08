@@ -15,19 +15,6 @@ Polynomial mod2ToModPowerOfTwo(Polynomial a, Polynomial Fq, int mod) {
   return Fq;
 }
 
-Polynomial mod2ToMod2048(Polynomial a, Polynomial Fq) {
-  int v = 2;
-  while (v < 2048) {
-    v *= 2;
-    Polynomial temp = Fq;
-    temp = temp.multiplyInt(2).reduce(v);
-    Fq = (a.multPoly(Fq, 2048)).multPoly(Fq, 2048);
-    temp = temp.substractPoly(Fq, v);
-    Fq = temp;
-  }
-  return Fq;
-}
-
 Polynomial inverseF2(Polynomial a) {
   List<int> coeffA = List.from(a.coefficients);
   coeffA.add(0); // padding
@@ -68,8 +55,8 @@ Polynomial inverseF2(Polynomial a) {
       b = c;
       c = temp;
     }
-    f = f.addPolyMod2(g);
-    b = b.addPolyMod2(c);
+    f = f.addPolyModPowerOfTwo(g, 2);
+    b = b.addPolyModPowerOfTwo(c, 2);
   }
   if (b.coefficients[N] != 0) {
     throw new Exception('Not invertible 2');
@@ -132,12 +119,12 @@ Polynomial inverseF3(Polynomial a) {
       c = temp;
     }
     if (f.coefficients[0] == g.coefficients[0]) {
-      f = f.substractPolyMod3(g);
-      b = b.substractPolyMod3(c);
+      f = f.substractPolyModInt(g, 3);
+      b = b.substractPolyModInt(c, 3);
     }
     else {
-      f = f.addPolyMod3(g);
-      b = b.addPolyMod3(c);
+      f = f.addPolyModInt(g, 3);
+      b = b.addPolyModInt(c, 3);
     }
   }
   if (b.coefficients[N] != 0) {
@@ -217,17 +204,6 @@ Polynomial listOfIntToPolynomial(List<int> ints, int N) {
     idx += tmp.length;
   });
   return new Polynomial(N, coeffs);
-}
-
-String polynomialToBase64(Polynomial a) {
-  int numChunks = 16;
-
-  List<int> bytes = [];
-  String str = a.coefficients.join();
-  for(int i = 0, o = 0; i < numChunks; i++, o+=8) {
-    bytes.add(int.parse(str.substring(o, o+8), radix: 2));
-  }
-  return base64.encode(bytes);
 }
 
 List<int> polynomialToListOfInt(Polynomial a) {

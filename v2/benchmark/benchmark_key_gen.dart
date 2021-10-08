@@ -6,7 +6,7 @@ import '../library/helper.dart';
 String benchmark_ntru_1(int count) {
   final stopwatch = Stopwatch()..start();
   for (int i = 0; i < count; i++) {
-    NTRU ntru = new NTRU();
+    new NTRU();
   }
   return 'NTRU encryption executed in ${stopwatch.elapsed}';
 }
@@ -14,7 +14,7 @@ String benchmark_ntru_1(int count) {
 String benchmark_ntru_2(int count) {
   final stopwatch = Stopwatch()..start();
   for (int i = 0; i < count; i++) {
-    NTRUMethod2 ntru = new NTRUMethod2();
+    new NTRUMethod2();
   }
   return 'NTRUMethod2 encryption executed in ${stopwatch.elapsed}';
 }
