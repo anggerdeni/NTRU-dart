@@ -31,7 +31,7 @@ class NTRUMethod2 {
           f3 = generateRandomPolynomialMethod2(_N);
           f = f1.multPoly(f2, 3).addPolyMod3(f3).multiplyIntMod3(_p).addIntMod3(1);
           fInvP = inverseF3(f);
-          fInvQ = inverseFq(f);
+          fInvQ = inverseFq(f, this._q);
           inverseFound = true;
         } catch(e) {
           continue;

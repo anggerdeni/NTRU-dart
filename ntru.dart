@@ -27,7 +27,7 @@ class NTRU {
           F = generateRandomPolynomial(_N);
           f = F.multiplyIntMod3(_p).addIntMod3(1);
           fInvP = inverseF3(f);
-          fInvQ = inverseFq(f);
+          fInvQ = inverseFq(f, this._q);
           inverseFound = true;
         } catch(e) {
           continue;

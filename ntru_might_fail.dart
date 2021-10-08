@@ -4,7 +4,7 @@ import 'polynomial.dart';
 class NTRUMightFail {
   final int _N = 397;
   final int _p = 3;
-  final int _q = 2048;
+  final int _q = 512;
   late Polynomial f;
   late Polynomial fp;
   late Polynomial g;
@@ -27,7 +27,7 @@ class NTRUMightFail {
           F = generateRandomPolynomial(_N);
           f = F.multiplyIntMod3(_p).addIntMod3(1);
           fInvP = inverseF3(f);
-          fInvQ = inverseFq(f);
+          fInvQ = inverseFq(f, this._q);
           inverseFound = true;
         } catch(e) {
           continue;
@@ -67,11 +67,11 @@ class NTRUMightFail {
 
   Polynomial encrypt(Polynomial message, Polynomial r) {
     if(message.N != _N) throw new Exception('Message should have same N');
-    return r.multPolyMod2048(this.h).addPolyMod2048(message);
+    return r.multPolyModPowerOfTwo(this.h, this._q).addPolyModPowerOfTwo(message, this._q);
   }
 
   Polynomial decrypt(Polynomial cipher) {
-    Polynomial a = this.f.multPolyModCenterLift2048(cipher);
+    Polynomial a = this.f.multPolyModCenterLiftPowerOfTwo(cipher, this._q);
     return this.fp.multPolyMod3(a);
   }
 }

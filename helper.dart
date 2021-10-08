@@ -2,6 +2,19 @@ import 'dart:math';
 import 'dart:convert';
 import 'polynomial.dart';
 
+Polynomial mod2ToModPowerOfTwo(Polynomial a, Polynomial Fq, int mod) {
+  int v = 2;
+  while (v < mod) {
+    v *= 2;
+    Polynomial temp = Fq;
+    temp = temp.multiplyInt(2).reduce(v);
+    Fq = (a.multPolyModPowerOfTwo(Fq, mod)).multPolyModPowerOfTwo(Fq, mod);
+    temp = temp.substractPoly(Fq, v);
+    Fq = temp;
+  }
+  return Fq;
+}
+
 Polynomial mod2ToMod2048(Polynomial a, Polynomial Fq) {
   int v = 2;
   while (v < 2048) {
@@ -73,9 +86,9 @@ Polynomial inverseF2(Polynomial a) {
   return Fq;
 }
 
-Polynomial inverseFq(Polynomial a) {
+Polynomial inverseFq(Polynomial a, int q) {
   Polynomial Fq = inverseF2(a);
-  return mod2ToMod2048(a, Fq);
+  return mod2ToModPowerOfTwo(a, Fq, q);
 }
 
 Polynomial inverseF3(Polynomial a) {

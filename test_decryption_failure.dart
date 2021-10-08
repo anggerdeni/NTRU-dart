@@ -35,8 +35,10 @@ int ntru_full_operation_2(int count) {
 
 
 void main() {
-  for(int i = 0; i < 10; i++) {
-    print('$i -----------------------------------------------------');
-    print(ntru_full_operation_2(10000));
+  for(int i = 0; i < 1000; i++) {
+    int x = ntru_full_operation_2(10000);
+    if(x > 0) {
+      print("Decryption failure: ${x}/10000");
+    }
   }
 }
