@@ -1,7 +1,7 @@
-import 'ntru.dart';
-import 'ntru_method_2.dart';
-import 'polynomial.dart';
-import 'helper.dart';
+import '../library/ntru.dart';
+import '../library/ntru_method_2.dart';
+import '../library/polynomial.dart';
+import '../library/helper.dart';
 
 String benchmark_ntru_1(int count) {
   final stopwatch = Stopwatch()..start();

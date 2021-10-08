@@ -1,5 +1,5 @@
 import 'package:encrypt/encrypt.dart';
-import 'helper.dart';
+import 'library/helper.dart';
 
 void main() {
   final plainText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit';

@@ -1,7 +1,7 @@
 import 'package:encrypt/encrypt.dart';
 import 'package:pointycastle/asymmetric/api.dart';
-import 'helper.dart';
 import 'dart:convert';
+import 'library/helper.dart';
 
 String benchmark_rsa_encrypt(int count){
   var modulus = BigInt.parse(

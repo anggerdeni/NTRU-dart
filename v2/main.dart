@@ -1,6 +1,6 @@
-import 'ntru.dart';
-import 'polynomial.dart';
-import 'helper.dart';
+import 'library/ntru.dart';
+import 'library/polynomial.dart';
+import 'library/helper.dart';
 
 String benchmark_ntru_encrypt(int count) {
   NTRU ntru = new NTRU();

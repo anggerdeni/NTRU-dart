@@ -1,7 +1,7 @@
-import 'ntru_might_fail.dart';
-import 'ntru.dart';
-import 'polynomial.dart';
-import 'helper.dart';
+import '../library/ntru_might_fail.dart';
+import '../library/ntru.dart';
+import '../library/polynomial.dart';
+import '../library/helper.dart';
 
 void ntru_full_operation(int count) {
   for (int i = 0; i < count; i++) {

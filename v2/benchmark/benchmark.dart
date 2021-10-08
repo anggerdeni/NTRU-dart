@@ -1,6 +1,6 @@
-import 'main.dart';
-import 'rsa.dart';
-import 'x25519.dart';
+import '../main.dart';
+import '../rsa.dart';
+import '../x25519.dart';
 
 void main() async {
   int count = 1000;
