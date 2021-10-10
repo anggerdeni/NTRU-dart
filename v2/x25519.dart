@@ -8,10 +8,11 @@ Future<String> benchmark_x25519_key_exchange(int count) async {
 
   final stopwatch = Stopwatch()..start();
   for (int i = 0; i < count; i++) {
-    await algorithm.sharedSecretKey(
+    final sharedSecret = await algorithm.sharedSecretKey(
       keyPair: aliceKeyPair,
       remotePublicKey: bobPublicKey,
     );
+    await sharedSecret.extractBytes();
   }
   return 'X25519 key exchange executed in ${stopwatch.elapsed}';
 }

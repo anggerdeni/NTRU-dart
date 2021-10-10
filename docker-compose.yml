@@ -1,0 +1,12 @@
+version: "3"
+services:
+  dart:
+    build: .
+    container_name: ntru_dart
+    volumes:
+       - .:/app
+    deploy:
+      resources:
+        limits:
+          cpus: 0.5
+          memory: 512M

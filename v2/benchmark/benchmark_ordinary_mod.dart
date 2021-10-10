@@ -1,5 +1,5 @@
 void main() {
-  int count = 1000000;
+  int count = 100000*100000;
 
   var stopwatch = Stopwatch()..start();
   for (int i = 0; i < count; i++) {

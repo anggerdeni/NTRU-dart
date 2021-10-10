@@ -55,9 +55,18 @@ class Polynomial {
 
     return Polynomial(this._N, result);
   }
+  
+  Polynomial multiplyIntMod3(int b) {
+    List<int> result = [];
 
+    for (int i = 0; i < this._coefficients.length; i += 1) {
+      result.add((this._coefficients[i] * b) % 3);
+    }
+
+    return Polynomial(this._N, result);
+  }
+  
   Polynomial multPoly(Polynomial b, int modulo) {
-    // todo: modulo ?
     int N = this.N;
     Polynomial c = Polynomial.fromDegree(N, d: 0, coeff: 0);
     for (int k = 0; k < N; k++) {
@@ -111,6 +120,42 @@ class Polynomial {
     return c;
   }
 
+  Polynomial multPolyMod3(Polynomial b) {
+    int N = this.N;
+    Polynomial c = Polynomial.fromDegree(N, d: 0, coeff: 0);
+    for (int k = 0; k < N; k++) {
+      int ck1 = 0;
+      for (int i = 0; i <= k; i++) {
+        ck1 += this.coefficients[i] * b.coefficients[k - i];
+      }
+      int ck2 = 0;
+      for (int i = k + 1; i < N; i++) {
+        ck2 += this.coefficients[i] * b.coefficients[k + N - i];
+      }
+      int ck = c.coefficients[k] + ck1 + ck2;
+      c.coefficients[k] = ck % 3;
+    }
+    return c;
+  }
+
+  Polynomial multPolyMod2048(Polynomial b) {
+    int N = this.N;
+    Polynomial c = Polynomial.fromDegree(N, d: 0, coeff: 0);
+    for (int k = 0; k < N; k++) {
+      int ck1 = 0;
+      for (int i = 0; i <= k; i++) {
+        ck1 += this.coefficients[i] * b.coefficients[k - i];
+      }
+      int ck2 = 0;
+      for (int i = k + 1; i < N; i++) {
+        ck2 += this.coefficients[i] * b.coefficients[k + N - i];
+      }
+      int ck = c.coefficients[k] + ck1 + ck2;
+      c.coefficients[k] = ck % 2048;
+    }
+    return c;
+  }
+
   Polynomial multPolyModCenterLiftPowerOfTwo(Polynomial b, int mod) {
     int N = this.N;
     Polynomial c = Polynomial.fromDegree(N, d: 0, coeff: 0);
@@ -147,9 +192,52 @@ class Polynomial {
     return c;
   }
 
+  Polynomial multPolyModCenterLift3(Polynomial b) {
+    int N = this.N;
+    Polynomial c = Polynomial.fromDegree(N, d: 0, coeff: 0);
+    for (int k = 0; k < N; k++) {
+      int ck1 = 0;
+      for (int i = 0; i <= k; i++) {
+        ck1 += this.coefficients[i] * b.coefficients[k - i];
+      }
+      int ck2 = 0;
+      for (int i = k + 1; i < N; i++) {
+        ck2 += this.coefficients[i] * b.coefficients[k + N - i];
+      }
+      int ck = c.coefficients[k] + ck1 + ck2;
+      c.coefficients[k] = modCenterLiftMod3(ck);
+    }
+    return c;
+  }
+
+  Polynomial multPolyModCenterLift2048(Polynomial b) {
+    int N = this.N;
+    Polynomial c = Polynomial.fromDegree(N, d: 0, coeff: 0);
+    for (int k = 0; k < N; k++) {
+      int ck1 = 0;
+      for (int i = 0; i <= k; i++) {
+        ck1 += this.coefficients[i] * b.coefficients[k - i];
+      }
+      int ck2 = 0;
+      for (int i = k + 1; i < N; i++) {
+        ck2 += this.coefficients[i] * b.coefficients[k + N - i];
+      }
+      int ck = c.coefficients[k] + ck1 + ck2;
+      c.coefficients[k] = modCenterLiftMod2048(ck);
+    }
+    return c;
+  }
+
   Polynomial addIntModInt(int b, int mod) {
     List<int> result = List.from(this._coefficients);
     result[result.length - 1] = (result[result.length - 1] + b) % mod;
+
+    return Polynomial(this._N, result);
+  }
+
+  Polynomial addIntMod3(int b) {
+    List<int> result = List.from(this._coefficients);
+    result[result.length - 1] = (result[result.length - 1] + b) % 3;
 
     return Polynomial(this._N, result);
   }
@@ -158,6 +246,13 @@ class Polynomial {
     Polynomial c = Polynomial.fromDegree(this.N, d: 0, coeff: 0);
     for (int i = 0; i < this.N; i++)
       c.coefficients[i] = (this.coefficients[i] + b.coefficients[i]) % mod;
+    return c;
+  }
+
+  Polynomial addPolyMod2048(Polynomial b) {
+    Polynomial c = Polynomial.fromDegree(this.N, d: 0, coeff: 0);
+    for (int i = 0; i < this.N; i++)
+      c.coefficients[i] = (this.coefficients[i] + b.coefficients[i]) % 2048;
     return c;
   }
 
@@ -202,6 +297,24 @@ class Polynomial {
     int tmpResult2 = tmpResult - mod;
     if (tmpResult2 * tmpResult2 < tmpResult * tmpResult) {
       return tmpResult - mod;
+    }
+    return tmpResult;
+  }
+
+  int modCenterLiftMod3(int a) {
+    int tmpResult = (3 + a) % 3;
+    int tmpResult2 = tmpResult - 3;
+    if (tmpResult2 * tmpResult2 < tmpResult * tmpResult) {
+      return tmpResult - 3;
+    }
+    return tmpResult;
+  }
+
+  int modCenterLiftMod2048(int a) {
+    int tmpResult = (2048 + a) % 2048;
+    int tmpResult2 = tmpResult - 2048;
+    if (tmpResult2 * tmpResult2 < tmpResult * tmpResult) {
+      return tmpResult - 2048;
     }
     return tmpResult;
   }
