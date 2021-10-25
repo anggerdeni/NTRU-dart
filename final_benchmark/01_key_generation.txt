@@ -1,0 +1,122 @@
+root@523bb4f34bbb:/app# dart v2/benchmark/benchmark_key_gen.dart 
+#############################
+NTRU Metode 1 key generation executed in 0:01:28.671139
+NTRU Metode 2 key generation executed in 0:00:31.031814
+NTRU Metode 3 key generation executed in 0:00:31.868657
+----------------
+NTRU Metode 1 encryption executed in 0:00:07.293281
+NTRU Metode 2 encryption executed in 0:00:07.288104
+NTRU Metode 3 encryption executed in 0:00:07.396967
+----------------
+NTRU metode 1 decryption executed in 0:00:14.575654
+NTRU Metode 2 decryption executed in 0:00:17.686410
+NTRU metode 3 decryption executed in 0:00:17.709542
+#############################
+NTRU Metode 1 key generation executed in 0:01:35.869347
+NTRU Metode 2 key generation executed in 0:00:30.000827
+NTRU Metode 3 key generation executed in 0:00:31.126741
+----------------
+NTRU Metode 1 encryption executed in 0:00:07.195267
+NTRU Metode 2 encryption executed in 0:00:07.198726
+NTRU Metode 3 encryption executed in 0:00:07.284250
+----------------
+NTRU metode 1 decryption executed in 0:00:16.497240
+NTRU Metode 2 decryption executed in 0:00:17.591802
+NTRU metode 3 decryption executed in 0:00:17.427994
+#############################
+NTRU Metode 1 key generation executed in 0:01:34.298385
+NTRU Metode 2 key generation executed in 0:00:30.080094
+NTRU Metode 3 key generation executed in 0:00:31.205066
+----------------
+NTRU Metode 1 encryption executed in 0:00:07.194645
+NTRU Metode 2 encryption executed in 0:00:07.198167
+NTRU Metode 3 encryption executed in 0:00:07.286105
+----------------
+NTRU metode 1 decryption executed in 0:00:16.671487
+NTRU Metode 2 decryption executed in 0:00:17.627107
+NTRU metode 3 decryption executed in 0:00:17.601742
+#############################
+NTRU Metode 1 key generation executed in 0:01:35.306923
+NTRU Metode 2 key generation executed in 0:00:30.419548
+NTRU Metode 3 key generation executed in 0:00:31.556783
+----------------
+NTRU Metode 1 encryption executed in 0:00:07.224321
+NTRU Metode 2 encryption executed in 0:00:07.292825
+NTRU Metode 3 encryption executed in 0:00:07.288380
+----------------
+NTRU metode 1 decryption executed in 0:00:16.630330
+NTRU Metode 2 decryption executed in 0:00:17.858004
+NTRU metode 3 decryption executed in 0:00:17.690301
+#############################
+NTRU Metode 1 key generation executed in 0:01:34.426339
+NTRU Metode 2 key generation executed in 0:00:30.304078
+NTRU Metode 3 key generation executed in 0:00:31.668242
+----------------
+NTRU Metode 1 encryption executed in 0:00:07.279036
+NTRU Metode 2 encryption executed in 0:00:07.276681
+NTRU Metode 3 encryption executed in 0:00:07.383370
+----------------
+NTRU metode 1 decryption executed in 0:00:16.899678
+NTRU Metode 2 decryption executed in 0:00:17.874820
+NTRU metode 3 decryption executed in 0:00:17.814664
+#############################
+NTRU Metode 1 key generation executed in 0:01:40.081738
+NTRU Metode 2 key generation executed in 0:00:30.810492
+NTRU Metode 3 key generation executed in 0:00:32.106707
+----------------
+NTRU Metode 1 encryption executed in 0:00:07.317581
+NTRU Metode 2 encryption executed in 0:00:07.400947
+NTRU Metode 3 encryption executed in 0:00:07.408101
+----------------
+NTRU metode 1 decryption executed in 0:00:17.101690
+NTRU Metode 2 decryption executed in 0:00:18.041632
+NTRU metode 3 decryption executed in 0:00:18.116873
+#############################
+NTRU Metode 1 key generation executed in 0:01:33.700417
+NTRU Metode 2 key generation executed in 0:00:31.084587
+NTRU Metode 3 key generation executed in 0:00:32.021123
+----------------
+NTRU Metode 1 encryption executed in 0:00:07.385987
+NTRU Metode 2 encryption executed in 0:00:07.387261
+NTRU Metode 3 encryption executed in 0:00:07.394277
+----------------
+NTRU metode 1 decryption executed in 0:00:17.013538
+NTRU Metode 2 decryption executed in 0:00:17.990409
+NTRU metode 3 decryption executed in 0:00:17.942633
+#############################
+NTRU Metode 1 key generation executed in 0:01:38.095148
+NTRU Metode 2 key generation executed in 0:00:30.704725
+NTRU Metode 3 key generation executed in 0:00:31.964134
+----------------
+NTRU Metode 1 encryption executed in 0:00:07.300086
+NTRU Metode 2 encryption executed in 0:00:07.222731
+NTRU Metode 3 encryption executed in 0:00:07.266649
+----------------
+NTRU metode 1 decryption executed in 0:00:16.765575
+NTRU Metode 2 decryption executed in 0:00:17.816311
+NTRU metode 3 decryption executed in 0:00:17.838497
+#############################
+NTRU Metode 1 key generation executed in 0:01:37.079430
+NTRU Metode 2 key generation executed in 0:00:32.312263
+NTRU Metode 3 key generation executed in 0:00:31.275312
+----------------
+NTRU Metode 1 encryption executed in 0:00:07.190335
+NTRU Metode 2 encryption executed in 0:00:07.199467
+NTRU Metode 3 encryption executed in 0:00:07.210599
+----------------
+NTRU metode 1 decryption executed in 0:00:16.520547
+NTRU Metode 2 decryption executed in 0:00:17.505902
+NTRU metode 3 decryption executed in 0:00:17.420137
+#############################
+NTRU Metode 1 key generation executed in 0:01:32.375175
+NTRU Metode 2 key generation executed in 0:00:30.104705
+NTRU Metode 3 key generation executed in 0:00:31.090003
+----------------
+NTRU Metode 1 encryption executed in 0:00:07.100299
+NTRU Metode 2 encryption executed in 0:00:07.107201
+NTRU Metode 3 encryption executed in 0:00:07.202537
+----------------
+NTRU metode 1 decryption executed in 0:00:16.341913
+NTRU Metode 2 decryption executed in 0:00:17.333431
+NTRU metode 3 decryption executed in 0:00:17.336162
+----------------

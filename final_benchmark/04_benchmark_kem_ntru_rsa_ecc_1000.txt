@@ -1,0 +1,3 @@
+NTRU key exchange executed in   0:00:02.211068
+RSA key exchange executed in    0:02:03.102293
+X25519 key exchange executed in 0:00:02.340858

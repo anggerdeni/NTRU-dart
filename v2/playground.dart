@@ -1,14 +1,11 @@
-void main() {
-  int count = 100000000;
-  var stopwatch = Stopwatch()..start();
-  for (int i = 0; i < count; i++) {
-    134 % 2048;
-  }
-  print('Ordinary mod  ${count} operation: ${stopwatch.elapsed}');
+import 'library/ntru.dart';
+import 'library/polynomial.dart';
+import 'library/helper.dart';
 
-  var stopwatch2 = Stopwatch()..start();
-  for (int i = 0; i < count; i++) {
-    134 & 2047;
-  }
-  print('Bit operation ${count} operation: ${stopwatch2.elapsed}');
+void main() {
+  NTRU ntruI = new NTRU();
+  NTRU ntruJ = new NTRU();
+  int N = ntruI.N;
+  List<int> key = generateRandomInts(32);
+  Polynomial msg = listOfIntToPolynomial(key, N);
 }

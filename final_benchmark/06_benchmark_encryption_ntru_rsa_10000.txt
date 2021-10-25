@@ -1,0 +1,15 @@
+NTRU encryption executed in 0:00:07.826555
+RSA encryption executed in 0:00:27.988635
+--------------------------------------------------------
+NTRU encryption executed in 0:00:07.288839
+RSA encryption executed in 0:00:24.488103
+--------------------------------------------------------
+NTRU encryption executed in 0:00:07.205961
+RSA encryption executed in 0:00:23.990250
+--------------------------------------------------------
+NTRU encryption executed in 0:00:07.212847
+RSA encryption executed in 0:00:24.030083
+--------------------------------------------------------
+NTRU encryption executed in 0:00:07.036314
+RSA encryption executed in 0:00:24.594128
+--------------------------------------------------------

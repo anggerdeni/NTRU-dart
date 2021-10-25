@@ -1,6 +1,7 @@
 import 'package:cryptography/cryptography.dart';
 
-Future<String> benchmark_x25519_key_exchange(int count) async {
+Future<String> benchmark_x25519_key_exchange(
+    int count) async {
   final algorithm = X25519();
   final aliceKeyPair = await algorithm.newKeyPair();
   final bobKeyPair = await algorithm.newKeyPair();

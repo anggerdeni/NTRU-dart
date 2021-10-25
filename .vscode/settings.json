@@ -1,0 +1,10 @@
+{
+    "dart.lineLength": 60,
+    "[dart]": {
+        "editor.defaultFormatter": "Dart-Code.dart-code",
+        "editor.formatOnSave": true,
+        "editor.rulers": [60],
+        "editor.wordWrap": "wordWrapColumn",
+        "editor.wordWrapColumn": 60
+    }
+}

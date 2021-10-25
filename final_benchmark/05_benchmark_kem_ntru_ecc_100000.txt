@@ -1,0 +1,15 @@
+NTRU key exchange executed in 0:03:31.185178
+X25519 key exchange executed in 0:03:36.103790
+--------------------------------------------------------
+NTRU key exchange executed in 0:03:30.732040
+X25519 key exchange executed in 0:03:35.594110
+--------------------------------------------------------
+NTRU key exchange executed in 0:03:30.817637
+X25519 key exchange executed in 0:03:37.287485
+--------------------------------------------------------
+NTRU key exchange executed in 0:03:31.273467
+X25519 key exchange executed in 0:03:38.622984
+--------------------------------------------------------
+NTRU key exchange executed in 0:03:30.912776
+X25519 key exchange executed in 0:03:36.208480
+--------------------------------------------------------

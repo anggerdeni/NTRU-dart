@@ -1,18 +1,17 @@
 import 'helper.dart';
 import 'polynomial.dart';
 
-class NTRUMightFail {
-  final int _N = 397;
+class NTRUMethod1 {
+  late int _N;
   final int _p = 3;
-  late int _q;
+  final int _q = 2048;
   late Polynomial f;
   late Polynomial fp;
   late Polynomial g;
   late Polynomial h;
 
-  NTRUMightFail(this._q) {
-    Polynomial f = new Polynomial(1, [0]);
-    Polynomial F = new Polynomial(1, [0]);
+  NTRUMethod1(this._N) {
+    Polynomial f = generateRandomPolynomial(_N);
     Polynomial g = generateRandomPolynomial(_N);
     Polynomial fInvP = new Polynomial(1, [0]);
     Polynomial fInvQ = new Polynomial(1, [0]);
@@ -24,10 +23,9 @@ class NTRUMightFail {
       bool inverseFound = false;
       while (!inverseFound) {
         try {
-          F = generateRandomPolynomial(_N);
-          f = F.multiplyIntModInt(_p, 3).addIntModInt(1, 3);
+          f = generateRandomPolynomial(_N);
           fInvP = inverseF3(f);
-          fInvQ = inverseFint(f, this._q);
+          fInvQ = inverseFq(f, this._q);
           inverseFound = true;
         } catch (e) {
           continue;
@@ -46,7 +44,7 @@ class NTRUMightFail {
     }
   }
 
-  NTRUMightFail.fromKeyPair(
+  NTRUMethod1.fromKeyPair(
       String strH, String strF, String strFp) {
     this.h = Polynomial.fromCommaSeparatedCoefficients(
         this._N, strH);
@@ -72,14 +70,13 @@ class NTRUMightFail {
     if (message.N != _N)
       throw new Exception('Message should have same N');
     return r
-        .multiplyIntModInt(_p, _q)
-        .multPolyModInt(this.h, _q)
-        .addPolyModInt(message, _q);
+        .multiplyIntMod2048(_p)
+        .multPolyMod2048(this.h)
+        .addPolyMod2048(message);
   }
 
   Polynomial decrypt(Polynomial cipher) {
-    Polynomial a =
-        this.f.multPolyModCenterLiftInt(cipher, _q);
+    Polynomial a = this.f.multPolyModCenterLift2048(cipher);
     return this.fp.multPolyModCenterLift3(a);
   }
 }

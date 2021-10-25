@@ -46,6 +46,16 @@ class Polynomial {
     return Polynomial(this._N, result);
   }
 
+  Polynomial modInt(int mod) {
+    List<int> result = [];
+
+    for (int i = 0; i < this._coefficients.length; i += 1) {
+      result.add(this._coefficients[i] % mod);
+    }
+
+    return Polynomial(this._N, result);
+  }
+
   Polynomial multiplyIntModInt(int b, int mod) {
     List<int> result = [];
 
@@ -61,6 +71,16 @@ class Polynomial {
 
     for (int i = 0; i < this._coefficients.length; i += 1) {
       result.add((this._coefficients[i] * b) % 3);
+    }
+
+    return Polynomial(this._N, result);
+  }
+
+  Polynomial multiplyIntMod2048(int b) {
+    List<int> result = [];
+
+    for (int i = 0; i < this._coefficients.length; i += 1) {
+      result.add((this._coefficients[i] * b) % 2048);
     }
 
     return Polynomial(this._N, result);

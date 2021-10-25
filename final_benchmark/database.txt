@@ -1,0 +1,40 @@
+[
+  {
+    "_id": "ecedf47c-9c9c-46ed-ab60-5518a00ff4b5",
+    "roomID": "f8fed0a9-0b2e-40cb-ba9d-1e31b98adc5f",
+    "senderEmail": "charlie@gmail.com",
+    "receiverEmail": "alice@gmail.com",
+    "time": "1635014836479831",
+    "txtMsg": "Me34pm6yR2Ar9fU/ekdFrw==",
+    "__v": 0
+  },
+  {
+    "_id": "6c56f7ef-84a3-4713-9a4e-37194a9200a8",
+    "roomID": "83d861a0-1274-43d5-b815-31fdf0870b64",
+    "senderEmail": "charlie@gmail.com",
+    "receiverEmail": "bob@gmail.com",
+    "time": "1635014845060099",
+    "txtMsg": "VRpqsVvOepIy1d4K5ek9yQ==",
+    "__v": 0
+  },
+  {
+    "_id": "746bd564-28f7-4a10-a3f2-a5266fd6fa4a",
+    "roomID": "f8fed0a9-0b2e-40cb-ba9d-1e31b98adc5f",
+    "senderEmail": "alice@gmail.com",
+    "receiverEmail": "charlie@gmail.com",
+    "time": "1635014876029305",
+    "txtMsg": "Me34pkLUPgtG/v40cUxOpA==",
+    "__v": 0
+  },
+  {
+    "_id": "8b4bfd73-114f-47ae-bbeb-9f65490bf213",
+    "roomID": "83d861a0-1274-43d5-b815-31fdf0870b64",
+    "senderEmail": "bob@gmail.com",
+    "receiverEmail": "charlie@gmail.com",
+    "time": "1635014888751938",
+    "txtMsg": "VRpqsXeoA/lf3tUB7uI2wg==",
+    "__v": 0
+  }
+]
+
+
