@@ -13,7 +13,7 @@ class NTRULLL {
   NTRULLL(this._N) {
     late Polynomial f;
     late Polynomial F;
-    Polynomial g = generateRandomPolynomial(_N);
+    Polynomial g = generateRandomPolynomial2(_N);
     late Polynomial fInvP;
     late Polynomial fInvQ;
     late Polynomial testP;
@@ -24,9 +24,10 @@ class NTRULLL {
       bool inverseFound = false;
       while (!inverseFound) {
         try {
-          F = generateRandomPolynomial(_N);
-          f = F.multiplyIntMod3(_p).addIntMod3(1);
-          fInvP = inverseF3(f);
+          F = generateRandomPolynomial2(_N);
+          f = F.multiplyInt(_p);
+          f = f.addIntMod3(1);
+          fInvP = Polynomial.fromDegree(_N, d: 1);
           fInvQ = inverseFq(f, this._q);
           inverseFound = true;
         } catch (e) {
