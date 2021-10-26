@@ -248,6 +248,20 @@ Polynomial generateRandomPolynomial2(int N) {
   return new Polynomial(N, coeff);
 }
 
+Polynomial generateRandomPolynomial3(int N,
+    {List<int>? options}) {
+  List<int> coeff = List.filled(N, 0);
+  if (options == null) {
+    options = [-3, -2, -1, 0, 1, 2, 3];
+  }
+  Random rand = new Random();
+  for (int i = 0; i < N; i++) {
+    coeff[i] = options[rand.nextInt(options.length)];
+  }
+
+  return new Polynomial(N, coeff);
+}
+
 Polynomial generateRandomPolynomialMethod2(int N) {
   List<int> coeff =
       randomCoefficients(N, (N / 3).floor(), -1);

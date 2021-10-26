@@ -1,8 +1,8 @@
 import 'helper.dart';
 import 'polynomial.dart';
 
-class NTRU {
-  final int _N = 397;
+class NTRULLL {
+  late int _N;
   final int _p = 3;
   final int _q = 2048;
   late Polynomial f;
@@ -10,10 +10,10 @@ class NTRU {
   late Polynomial g;
   late Polynomial h;
 
-  NTRU() {
+  NTRULLL(this._N) {
     late Polynomial f;
     late Polynomial F;
-    Polynomial g = generateRandomPolynomial2(_N);
+    Polynomial g = generateRandomPolynomial(_N);
     late Polynomial fInvP;
     late Polynomial fInvQ;
     late Polynomial testP;
@@ -24,10 +24,9 @@ class NTRU {
       bool inverseFound = false;
       while (!inverseFound) {
         try {
-          F = generateRandomPolynomial2(_N);
-          f = F.multiplyInt(_p);
-          f = f.addIntMod3(1);
-          fInvP = Polynomial.fromDegree(_N, d: 1);
+          F = generateRandomPolynomial(_N);
+          f = F.multiplyIntMod3(_p).addIntMod3(1);
+          fInvP = inverseF3(f);
           fInvQ = inverseFq(f, this._q);
           inverseFound = true;
         } catch (e) {
@@ -47,7 +46,8 @@ class NTRU {
     }
   }
 
-  NTRU.fromKeyPair(String strH, String strF, String strFp) {
+  NTRULLL.fromKeyPair(
+      String strH, String strF, String strFp) {
     this.h = Polynomial.fromCommaSeparatedCoefficients(
         this._N, strH);
     this.f = Polynomial.fromCommaSeparatedCoefficients(
