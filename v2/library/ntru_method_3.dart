@@ -26,15 +26,17 @@ class NTRUMethod3 {
       bool inverseFound = false;
       while (!inverseFound) {
         try {
-          f1 = generateRandomPolynomialMethod2(_N);
-          f2 = generateRandomPolynomialMethod2(_N);
-          f3 = generateRandomPolynomialMethod2(_N);
-          f = f1
-              .multPoly(f2, 3)
-              .addPolyModInt(f3, 3)
-              .multiplyIntModInt(_p, 3)
-              .addIntModInt(1, 3);
-          fInvP = inverseF3(f);
+          f1 = generateRandomBinaryPolynomialWithD(
+              _N, (_N / 3).floor());
+          f2 = generateRandomBinaryPolynomialWithD(
+              _N, (_N / 3).floor());
+          f3 = generateRandomBinaryPolynomialWithD(
+              _N, (_N / 3).floor());
+          f = f1.multPoly(f2, 3);
+          f = f.addPolyModCenterLiftInt(f3, 3);
+          f = f.multiplyInt(_p);
+          f = f.addIntMod3(1);
+          fInvP = Polynomial.fromDegree(_N, d: 1);
           fInvQ = inverseFq(f, this._q);
           inverseFound = true;
         } catch (e) {

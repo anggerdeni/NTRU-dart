@@ -228,6 +228,27 @@ List<int> randomCoefficients(
   return result;
 }
 
+List<int> randomBinaryCoefficients(int length, int d) {
+  List<int> zeros = List.filled(length - d, 0);
+  List<int> ones = List.filled(d, 1);
+  List<int> result = List.from(zeros)..addAll(ones);
+  result.shuffle();
+  return result;
+}
+
+List<int> randomTrinaryCoefficients(
+    int length, int d, int neg_ones_diff) {
+  List<int> zeros =
+      List.filled(length - 2 * d - neg_ones_diff, 0);
+  List<int> ones = List.filled(d, 1);
+  List<int> neg_ones = List.filled(d + neg_ones_diff, -1);
+  List<int> result = List.from(zeros)
+    ..addAll(ones)
+    ..addAll(neg_ones);
+  result.shuffle();
+  return result;
+}
+
 Polynomial generateRandomPolynomial(int N,
     {List<int>? options}) {
   List<int> coeff = List.filled(N, 0);
@@ -242,29 +263,17 @@ Polynomial generateRandomPolynomial(int N,
   return new Polynomial(N, coeff);
 }
 
-Polynomial generateRandomPolynomial2(int N) {
+Polynomial generateRandomBinaryPolynomialWithD(
+    int N, int d) {
   List<int> coeff =
-      randomCoefficients(N, (N / 3).floor(), -1);
+      randomBinaryCoefficients(N, (N / 3).floor());
   return new Polynomial(N, coeff);
 }
 
-Polynomial generateRandomPolynomial3(int N,
-    {List<int>? options}) {
-  List<int> coeff = List.filled(N, 0);
-  if (options == null) {
-    options = [-3, -2, -1, 0, 1, 2, 3];
-  }
-  Random rand = new Random();
-  for (int i = 0; i < N; i++) {
-    coeff[i] = options[rand.nextInt(options.length)];
-  }
-
-  return new Polynomial(N, coeff);
-}
-
-Polynomial generateRandomPolynomialMethod2(int N) {
+Polynomial generateRandomTrinaryPolynomialWithD(
+    int N, int d) {
   List<int> coeff =
-      randomCoefficients(N, (N / 3).floor(), -1);
+      randomTrinaryCoefficients(N, (N / 3).floor(), -1);
   return new Polynomial(N, coeff);
 }
 

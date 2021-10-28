@@ -287,12 +287,31 @@ class Polynomial {
     return Polynomial(this._N, result);
   }
 
+  Polynomial addPoly(Polynomial b) {
+    Polynomial c =
+        Polynomial.fromDegree(this.N, d: 0, coeff: 0);
+    for (int i = 0; i < this.N; i++)
+      c.coefficients[i] =
+          (this.coefficients[i] + b.coefficients[i]);
+    return c;
+  }
+
   Polynomial addPolyModInt(Polynomial b, int mod) {
     Polynomial c =
         Polynomial.fromDegree(this.N, d: 0, coeff: 0);
     for (int i = 0; i < this.N; i++)
       c.coefficients[i] =
           (this.coefficients[i] + b.coefficients[i]) % mod;
+    return c;
+  }
+
+  Polynomial addPolyModCenterLiftInt(
+      Polynomial b, int mod) {
+    Polynomial c =
+        Polynomial.fromDegree(this.N, d: 0, coeff: 0);
+    for (int i = 0; i < this.N; i++)
+      c.coefficients[i] = modCenterLiftModInt(
+          (this.coefficients[i] + b.coefficients[i]), mod);
     return c;
   }
 
