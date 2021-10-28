@@ -39,9 +39,11 @@ def plot_regression_line(x, y, b):
     # function to show plot
     plt.show()
 
+
 def find_log_t(b, n):
     # ln(T ) ≥ AN + B
     return np.exp(b[1] * n + b[0])
+
 
 TIME_DURATION_UNITS = (
     ('year', 52*60*60*24*7),
@@ -53,6 +55,7 @@ TIME_DURATION_UNITS = (
     ('sec', 1)
 )
 
+
 def human_time_duration(seconds):
     if seconds == 0:
         return 'inf'
@@ -60,7 +63,8 @@ def human_time_duration(seconds):
     for unit, div in TIME_DURATION_UNITS:
         amount, seconds = divmod(int(seconds), div)
         if amount > 0:
-            parts.append('{} {}{}'.format(amount, unit, "" if amount == 1 else "s"))
+            parts.append('{} {}{}'.format(
+                amount, unit, "" if amount == 1 else "s"))
     return ', '.join(parts)
 
 
