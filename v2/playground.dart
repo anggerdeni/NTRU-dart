@@ -37,4 +37,9 @@ void main() {
   print(ntru2.f.coefficients);
   print(ntru3.fp.coefficients);
   print(ntru4.fp.coefficients);
+  print('--------------');
+  print(ntru1.h.coefficients);
+  print(ntru2.h.coefficients);
+  print(ntru3.h.coefficients);
+  print(ntru4.h.coefficients);
 }

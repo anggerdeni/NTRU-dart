@@ -33,15 +33,17 @@ def plot_regression_line(x, y, b):
     plt.plot(x, y_pred, color="g")
 
     # putting labels
-    plt.xlabel('x')
-    plt.ylabel('y')
+    plt.xlabel('N')
+    plt.ylabel('log(T)')
 
     # function to show plot
-    plt.show()
+    plt.savefig('linreg.png')
 
 
 def find_log_t(b, n):
     # ln(T ) ≥ AN + B
+    # print(f'A = {b[1]}')
+    # print(f'B = {b[0]}')
     return np.exp(b[1] * n + b[0])
 
 
@@ -80,7 +82,7 @@ def main():
     # plotting regression line
     plot_regression_line(x, y, b)
     for i in range(400):
-        print(i, human_time_duration(find_log_t(b, i)))
+        print(i, int(find_log_t(b, i)), human_time_duration(find_log_t(b, i)))
 
 
 if __name__ == "__main__":

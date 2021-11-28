@@ -46,13 +46,13 @@ method_3_keygen_1000x = np.average([
   parse_time_to_seconds(b'0:00:34.995316'),
 ])
 
-data = {'Metode 1': method_1_keygen_1000x, 'Metode 2': method_2_keygen_1000x, 'Metode 3': method_3_keygen_1000x}
+data = {'Method 1': method_1_keygen_1000x, 'Method 2': method_2_keygen_1000x, 'Method 3': method_3_keygen_1000x}
 print(data)
 methods = list(data.keys())
 values = list(data.values())
 
 plt.bar(methods, values, color=(0.2, 0.4, 0.6, 0.6),width = 0.4)
-plt.ylabel("Lama Eksekusi (dalam detik)")
+plt.ylabel("Execution time (seconds)")
 plt.savefig('01_01_key generation.png')
 plt.clf()
 
@@ -92,12 +92,12 @@ method_3_encryption_10000x = np.average([
   parse_time_to_seconds(b'0:00:06.528590'),
   parse_time_to_seconds(b'0:00:06.507548'),
 ])
-data = {'Metode 1': method_1_encryption_10000x, 'Metode 2': method_2_encryption_10000x, 'Metode 3': method_3_encryption_10000x}
+data = {'Method 1': method_1_encryption_10000x, 'Method 2': method_2_encryption_10000x, 'Method 3': method_3_encryption_10000x}
 print(data)
 methods = list(data.keys())
 values = list(data.values())
 plt.bar(methods, values, color=(0.2, 0.4, 0.6, 0.6),width = 0.4)
-plt.ylabel("Lama Eksekusi (dalam detik)")
+plt.ylabel("Execution time (seconds)")
 plt.savefig('01_02_encryption.png')
 plt.clf()
 
@@ -137,11 +137,11 @@ method_3_decryption_10000x = np.average([
   parse_time_to_seconds(b'0:00:16.069549'),
   parse_time_to_seconds(b'0:00:15.614441'),
 ])
-data = {'Metode 1': method_1_decryption_10000x, 'Metode 2': method_2_decryption_10000x, 'Metode 3': method_3_decryption_10000x}
+data = {'Method 1': method_1_decryption_10000x, 'Method 2': method_2_decryption_10000x, 'Method 3': method_3_decryption_10000x}
 print(data)
 methods = list(data.keys())
 values = list(data.values())
 plt.bar(methods, values, color=(0.2, 0.4, 0.6, 0.6),width = 0.4)
-plt.ylabel("Lama Eksekusi (dalam detik)")
+plt.ylabel("Execution time (seconds)")
 plt.savefig('01_03_decryption.png')
 plt.clf()

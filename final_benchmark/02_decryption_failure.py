@@ -10,8 +10,8 @@ with open('./02_decryption_failure.txt', 'r') as f:
         y.append(int(tmp[1].split('/')[0]) / 10.0)
 
 
-plt.ylabel("Presentase kegagalan dekripsi")
-plt.xlabel("Nilai q")
+plt.ylabel("Percentage of decryption failure")
+plt.xlabel("Value of q")
 plt.plot(x, y)
 plt.savefig('02_decryption failure.png')
 plt.clf()
